@@ -8,11 +8,12 @@
     "test:watch": "npx mocha __tests/**/*.js --watch"
   },
   "keywords": [
-    "narakeet",
+    "mandarino",
     "api",
     "ai",
     "nlp",
-    "languages"
+    "languages",
+    "language-learning"
   ],
   "author": "learnuidev@gmail.com <Vishal Gautam>",
   "license": "MIT",
