@@ -30,7 +30,7 @@ const mandarino = mandarinoApi({
 2. Detect Langauge `detectLanguage`
 3. Generate Sentences `genSentences`
 
-## 1. Discover
+## 1. Discover [`discover`]
 
 ```javascript
 mandarino.discover({ content: "从" }).then((character) => {
@@ -52,7 +52,7 @@ mandarino.discover({ content: "从" }).then((character) => {
 }
 ```
 
-## 2. Detect Language
+## 2. Detect Language [`detectLanguage`]
 
 ```js
 mandarino.detectLanguage({ content: "从" }).then((lang) => {
@@ -62,7 +62,7 @@ mandarino.detectLanguage({ content: "从" }).then((lang) => {
 // => 'zh'
 ```
 
-## 3. Generate Sentences (`genSentences`)
+## 3. Generate Sentences [`genSentences`]
 
 ```javascript
 mandarino.genSentences({ content: "从" }).then((sentences) => {
