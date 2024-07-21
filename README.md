@@ -1,4 +1,4 @@
-# Narakeet
+# Mandarino
 
 Mandarino API in JS
 
