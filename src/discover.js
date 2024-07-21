@@ -46,8 +46,7 @@ const discover = async ({ content, lang, apiKey }) => {
       // nmmIndex: nmmComponents[content],
       lang: resolvedLang,
       group: (item?.initial || "") + (item?.final || ""),
-
-      discoveredAt: Date.now(),
+      discovered_at: Date.now(),
     });
   } catch (err) {
     throw err;

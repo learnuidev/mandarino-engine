@@ -44,6 +44,6 @@ mandarino.discover({ content: "从" }).then((character) => {
   final: 'ong',
   group: 'cong',
   lang: 'zh',
-  discoveredAt: 1721593687888
+  discovered_at: 1721593687888
 }
 ```
