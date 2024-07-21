@@ -44,7 +44,7 @@ const discover = async ({ content, lang, apiKey }) => {
     return removeNull({
       ...item,
       // nmmIndex: nmmComponents[content],
-      lang,
+      lang: resolvedLang,
       group: (item?.initial || "") + (item?.final || ""),
 
       discoveredAt: Date.now(),

@@ -38,11 +38,12 @@ mandarino.discover({ content: "从" }).then((character) => {
   hanzi: '从',
   tone_level: 2,
   pinyin: 'cóng',
-  grammar_type: 'preposition/part of a word',
-  en: 'from/obey/follow/engage in (work, study)/on the basis of',
+  grammar_type: 'preposition',
+  en: 'from/by/since/obey/follow/along/entrust/keep an eye on',
   initial: 'c',
   final: 'ong',
   group: 'cong',
-  discoveredAt: 1721593278899
+  lang: 'zh',
+  discoveredAt: 1721593687888
 }
 ```
