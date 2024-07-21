@@ -1,7 +1,7 @@
 {
-  "name": "mandarino",
-  "version": "9.7.2024.22.54",
-  "description": "Unofficial Narakeet SDK in JavaScript [TypeScript Coming Soon]",
+  "name": "mandarino-engine",
+  "version": "21.7.2024.16.54",
+  "description": "Official Mandarino SDK [TypeScript coming soon]",
   "main": "src/index.js",
   "scripts": {
     "test": "npx mocha __tests/**/*.js",
