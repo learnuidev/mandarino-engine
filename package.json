@@ -1,0 +1,26 @@
+{
+  "name": "mandarino",
+  "version": "9.7.2024.22.54",
+  "description": "Unofficial Narakeet SDK in JavaScript [TypeScript Coming Soon]",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npx mocha __tests/**/*.js",
+    "test:watch": "npx mocha __tests/**/*.js --watch"
+  },
+  "keywords": [
+    "narakeet",
+    "api",
+    "ai",
+    "nlp",
+    "languages"
+  ],
+  "author": "learnuidev@gmail.com <Vishal Gautam>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "4.1.1",
+    "mocha": "^10.6.0"
+  },
+  "dependencies": {
+    "openai": "^4.52.7"
+  }
+}
