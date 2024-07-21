@@ -1,5 +1,5 @@
 {
-  "name": "mandarino-engine",
+  "name": "mandarino",
   "version": "21.7.2024.16.54",
   "description": "Official Mandarino SDK [TypeScript coming soon]",
   "main": "src/index.js",

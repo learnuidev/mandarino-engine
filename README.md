@@ -1,11 +1,11 @@
 # Narakeet
 
-Narakeet API in JS
+Mandarino API in JS
 
 ## Install
 
 ```bash
-npm install narakeet
+npm install mandarino
 ```
 
 ## Update your `.env` to
