@@ -143,7 +143,6 @@ async function _genSentences({ content, lang, apiKey }) {
     return {
       ...sentence,
       lang,
-      [lang]: sentence?.input,
       component: content,
     };
   });

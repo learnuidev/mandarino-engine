@@ -30,7 +30,7 @@ const mandarino = mandarinoApi({
 2. Detect Langauge `detectLanguage`
 3. Generate Sentences `genSentences`
 
-## 1. Discover [`discover`]
+## 1. Discover
 
 ```javascript
 mandarino.discover({ content: "从" }).then((character) => {
@@ -52,7 +52,7 @@ mandarino.discover({ content: "从" }).then((character) => {
 }
 ```
 
-## 2. Detect Language [`detectLanguage`]
+## 2. Detect Language
 
 ```js
 mandarino.detectLanguage({ content: "从" }).then((lang) => {
@@ -62,7 +62,7 @@ mandarino.detectLanguage({ content: "从" }).then((lang) => {
 // => 'zh'
 ```
 
-## 3. Generate Sentences [`genSentences`]
+## 3. Generate Sentences
 
 ```javascript
 mandarino.genSentences({ content: "从" }).then((sentences) => {
@@ -72,39 +72,49 @@ mandarino.genSentences({ content: "从" }).then((sentences) => {
 // =>
 [
   {
-    hanzi: "从这里开始",
-    pinyin: "Cóng zhèlǐ kāishǐ",
-    en: "Start from here",
+    hanzi: "从这里开始。",
+    pinyin: "Cóng zhèli kāishǐ.",
+    en: "Start from here.",
     explanation:
-      "In this sentence, 从 means 'from', 这里 means 'here', and 开始 means 'start'. Combined, 从这里开始 means 'Start from here'.",
+      "In this sentence, 从 means 'from' and 这里 means 'here'. Combined, 从这里开始 means 'Start from here'.",
+    lang: "zh",
+    component: "从",
   },
   {
-    hanzi: "从左边到右边",
-    pinyin: "Cóng zuǒbiān dào yòubiān",
-    en: "From left to right",
+    hanzi: "从左往右看。",
+    pinyin: "Cóng zuǒ wǎng yòu kàn.",
+    en: "Look from left to right.",
     explanation:
-      "Here, 从 means 'from', 左边 means 'left side', 右边 means 'right side'. Combined, 从左边到右边 means 'From left to right'.",
+      "Here, 从 means 'from', 左 means 'left', 右 means 'right', and 看 means 'look'. Combined, 从左往右看 means 'Look from left to right'.",
+    lang: "zh",
+    component: "从",
   },
   {
-    hanzi: "他从学校回家了",
-    pinyin: "Tā cóng xuéxiào huí jiāle",
-    en: "He went home from school",
+    hanzi: "从小学就喜欢阅读。",
+    pinyin: "Cóng xiǎoxué jiù xǐhuān yuèdú.",
+    en: "Have loved reading since elementary school.",
     explanation:
-      "In this sentence, 他 means 'he', 学校 means 'school', 回家 means 'go home'. Combined, 他从学校回家了 means 'He went home from school'.",
+      "In this sentence, 从 means 'from', 小学 means 'elementary school', 就 means 'since', 喜欢 means 'like', and 阅读 means 'reading'. Combined, 从小学就喜欢阅读 means 'Have loved reading since elementary school'.",
+    lang: "zh",
+    component: "从",
   },
   {
-    hanzi: "从早到晚",
-    pinyin: "Cóng zǎo dào wǎn",
-    en: "From morning till night",
+    hanzi: "从山上往下走。",
+    pinyin: "Cóng shānshàng wǎng xià zǒu.",
+    en: "Walk down from the mountain.",
     explanation:
-      "Here, 从 means 'from', 早 means 'early/morning', 晚 means 'night'. Combined, 从早到晚 means 'From morning till night'.",
+      "Here, 从 means 'from', 山上 means 'mountain top', 往下 means 'downwards', and 走 means 'walk'. Combined, 从山上往下走 means 'Walk down from the mountain'.",
+    lang: "zh",
+    component: "从",
   },
   {
-    hanzi: "出发从这里",
-    pinyin: "Chūfā cóng zhèlǐ",
-    en: "Depart from here",
+    hanzi: "从星期一到星期五。",
+    pinyin: "Cóng xīngqī yī dào xīngqīwǔ.",
+    en: "From Monday to Friday.",
     explanation:
-      "In this sentence, 出发 means 'depart', 从 means 'from', 这里 means 'here'. Combined, 出发从这里 means 'Depart from here'.",
+      "In this sentence, 从 means 'from', 星期一 means 'Monday', 到 means 'to', and 星期五 means 'Friday'. Combined, 从星期一到星期五 means 'From Monday to Friday'.",
+    lang: "zh",
+    component: "从",
   },
 ];
 ```
