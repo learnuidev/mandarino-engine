@@ -24,12 +24,13 @@ const mandarino = mandarinoApi({
 
 ---
 
-# API's
+## Feature Usage Guide
 
 1. Discover `discover`
-2. Detect Langauge `detectLanguage`
-3. Generate Sentences `genSentences`
-4. Generate Conversation `genConversation`
+2. Grammar Analysis `listGrammarAnalysis`
+3. Detect Langauge `detectLanguage`
+4. Generate Sentences `genSentences`
+5. Generate Conversation `genConversation`
 
 ## 1. Discover
 
@@ -55,7 +56,41 @@ mandarino.discover({ content: "从" }).then((character) => {
 
 ---
 
-## 2. Detect Language
+## 2. Grammar Analysis
+
+```js
+mandarino
+  .listGrammarAnaysis({
+    lang: "zh",
+    content: "不但…而且…",
+  })
+  .then((grammarAnalysis) => {
+    console.log("grammar-analysis", grammarAnalysis);
+  });
+
+//  =>
+[
+  {
+    hanzi: "不但",
+    pinyin: "bùdàn",
+    en: "not only",
+    explanation:
+      "Expresses a contrast between two elements, emphasizing that the first mentioned condition is true and the second condition is also true.",
+  },
+  {
+    hanzi: "而且",
+    pinyin: "érqiě",
+    en: "but also",
+    explanation:
+      "Connects two clauses or phrases, indicating an additional or sequential relationship, implying that there is another relevant point to be mentioned.",
+  },
+  { hanzi: "...", pinyin: "...", en: "...", explanation: "..." },
+];
+```
+
+---
+
+## 3. Detect Language
 
 ```js
 mandarino.detectLanguage({ content: "从" }).then((lang) => {
@@ -67,7 +102,7 @@ mandarino.detectLanguage({ content: "从" }).then((lang) => {
 
 ---
 
-## 3. Generate Sentences
+## 4. Generate Sentences
 
 ```javascript
 mandarino.genSentences({ content: "从" }).then((sentences) => {
@@ -126,7 +161,7 @@ mandarino.genSentences({ content: "从" }).then((sentences) => {
 
 ---
 
-### 4. Generate Conversation
+### 5. Generate Conversation
 
 ```js
 
