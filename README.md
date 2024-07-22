@@ -24,6 +24,7 @@ const {
   detectLanguage,
   genSentences,
   genConversation,
+  getSummary,
 } = mandarino;
 ```
 
@@ -36,6 +37,7 @@ const {
 3. Detect Langauge `detectLanguage`
 4. Generate Sentences `genSentences`
 5. Generate Conversation `genConversation`
+6. Get Summary `getSummary`
 
 ## 1. Discover
 
@@ -216,5 +218,27 @@ mandarino
   ],
   responseTime: 4231.86862501502
 }
-(
+
+```
+
+### 6. Get Summary
+
+```js
+mandarino
+  .getSummary({
+    lang: "zh",
+    content: "不但…而且…",
+  })
+  .then((grammarAnalysis) => {
+    console.log("summary", grammarAnalysis);
+  });
+
+// =>
+`
+Explanation:
+The phrase "不但...而且..." is used to express a contrast or addition between two elements or actions. It typically emphasizes that in addition to the first mentioned element, there is also the second mentioned element.
+
+Possible use cases:
+This phrase can be used to highlight a dual effect, action, or situation, emphasizing that both aspects are relevant or important. For example, "不但漂亮，而且聪明" means "Not only beautiful, but also smart." This structure can be applied in various contexts such as describing qualities of a person, product features, or comparing different options.
+`;
 ```
