@@ -23,7 +23,7 @@ const discover = async ({ content, lang, apiKey }) => {
   try {
     discoverSchema.parse({ content, lang, apiKey });
   } catch (err) {
-    console.log("ERR", err);
+    // console.log("ERR", err);
     return {
       error: true,
       message: err.issues
@@ -38,7 +38,7 @@ const discover = async ({ content, lang, apiKey }) => {
 
     const prompt = resolveDiscoverPrompt({ content, lang: resolvedLang });
 
-    console.log("---prompt---", prompt);
+    // console.log("---prompt---", prompt);
     const chatCompletion = await openai.chat.completions.create({
       messages: [
         {

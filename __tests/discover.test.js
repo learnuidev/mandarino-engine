@@ -4,14 +4,14 @@ const { discover } = require("../src/discover");
 const { ZodError } = require("zod");
 
 describe("discover", () => {
-  it("should return mandarino validation error object", async () => {
-    const config = await discover({
-      content: false,
-      lang: undefined,
-      apiKey: 42,
-    });
+  const fistInput = {
+    content: false,
+    lang: undefined,
+    apiKey: 42,
+  };
 
-    // expect(config).to.equal(null);
+  it("if content and apiKey is wrong, it should return mandarino validation error object", async () => {
+    const config = await discover(fistInput);
 
     expect(config.error).to.equal(true);
     expect(config.issues?.length).to.equal(2);
@@ -19,12 +19,31 @@ describe("discover", () => {
       `content: Expected string, received boolean. apiKey: Expected string, received number`
     );
   });
-  it("should return opan-ai error object", async () => {
-    const config = await discover({
-      content: "I love Linear Algebra",
-      lang: "en",
-      apiKey: "invalid-api",
-    });
+
+  const secondInput = {
+    content: false,
+    lang: false,
+    apiKey: 42,
+  };
+
+  it("if all content, apiKey and language is wrong, it should return mandarino validation error object 2/2", async () => {
+    const config = await discover(secondInput);
+
+    expect(config.error).to.equal(true);
+    expect(config.issues?.length).to.equal(3);
+    expect(config.message).to.equal(
+      `content: Expected string, received boolean. lang: Expected string, received boolean. apiKey: Expected string, received number`
+    );
+  });
+
+  const thirdInput = {
+    content: "I love Linear Algebra",
+    lang: "en",
+    apiKey: "invalid-api",
+  };
+
+  it("if the openai api-key is wrong, it should return should return opan-ai error object", async () => {
+    const config = await discover(thirdInput);
 
     expect(config.error).to.equal(true);
     expect(config.message).to.equal(
