@@ -6,6 +6,13 @@ const OpenAI = require("openai");
 const { detectLanguage } = require("./detect-language");
 const { resolveDiscoverPrompt } = require("./discover.prompts");
 const { removeNull } = require("./utils/remove-null");
+const z = require("zod").z;
+
+const discoverSchema = z.object({
+  content: z.string(),
+  lang: z.string().nullable().optional(),
+  apiKey: z.string(),
+});
 
 const discover = async ({ content, lang, apiKey }) => {
   const openai = new OpenAI({
@@ -13,46 +20,67 @@ const discover = async ({ content, lang, apiKey }) => {
   });
   const t0 = performance.now();
 
-  const resolvedLang = lang || (await detectLanguage({ content, apiKey }));
+  try {
+    discoverSchema.parse({ content, lang, apiKey });
+  } catch (err) {
+    console.log("ERR", err);
+    return {
+      error: true,
+      message: err.issues
+        ?.map((issue) => `${issue?.path?.[0]}: ${issue?.message}`)
+        ?.join(". "),
+      issues: err.issues,
+    };
+  }
 
-  const prompt = resolveDiscoverPrompt({ content, lang: resolvedLang });
+  try {
+    const resolvedLang = lang || (await detectLanguage({ content, apiKey }));
 
-  console.log("---prompt---", prompt);
-  const chatCompletion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: `${prompt}
+    const prompt = resolveDiscoverPrompt({ content, lang: resolvedLang });
+
+    console.log("---prompt---", prompt);
+    const chatCompletion = await openai.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content: `${prompt}
         
         Also the content is of the following language: ${lang}`,
-      },
-      { role: "user", content: `content: ${content}` },
-    ],
-    model: "gpt-3.5-turbo",
-  });
-
-  const resp = await chatCompletion?.choices?.[0]?.message?.content;
-
-  const t1 = performance.now();
-
-  console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
-
-  // eslint-disable-next-line no-useless-catch
-  try {
-    const item = JSON.parse(resp);
-
-    return removeNull({
-      ...item,
-      // nmmIndex: nmmComponents[content],
-      lang: resolvedLang,
-      group: (item?.initial || "") + (item?.final || ""),
-      discovered_at: Date.now(),
+        },
+        { role: "user", content: `content: ${content}` },
+      ],
+      model: "gpt-3.5-turbo",
     });
+
+    const resp = await chatCompletion?.choices?.[0]?.message?.content;
+
+    const t1 = performance.now();
+
+    console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const item = JSON.parse(resp);
+
+      return removeNull({
+        ...item,
+        // nmmIndex: nmmComponents[content],
+        lang: resolvedLang,
+        group: (item?.initial || "") + (item?.final || ""),
+        discovered_at: Date.now(),
+      });
+    } catch (err) {
+      throw err;
+      // return removeNull({
+      //   raw: resp,
+      // });
+    }
   } catch (err) {
-    throw err;
-    // return removeNull({
-    //   raw: resp,
-    // });
+    return {
+      error: true,
+      message: err.message,
+    };
+    // throw err.message;
   }
 };
 

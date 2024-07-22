@@ -4,10 +4,3 @@ const removeNull = (obj) => {
 };
 
 module.exports.removeNull = removeNull;
-
-const isPattern = (sent) => {
-  // const exampleSent = '如果…那么…'
-  return sent?.includes("…") || sent?.includes("...");
-};
-
-module.exports.isPattern = isPattern;
