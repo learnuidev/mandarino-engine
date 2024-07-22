@@ -229,8 +229,8 @@ mandarino
     lang: "zh",
     content: "不但…而且…",
   })
-  .then((grammarAnalysis) => {
-    console.log("summary", grammarAnalysis);
+  .then((summary) => {
+    console.log("summary", summary);
   });
 
 // =>
