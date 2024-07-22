@@ -16,6 +16,15 @@ import { mandarinoApi } from "mandarino";
 const mandarino = mandarinoApi({
   apiKey: "OPENAI_API_KEY",
 });
+
+// Available Features
+const {
+  discover,
+  listGrammarAnaysis,
+  detectLanguage,
+  genSentences,
+  genConversation,
+} = mandarino;
 ```
 
 ---
