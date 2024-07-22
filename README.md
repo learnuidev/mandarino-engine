@@ -29,6 +29,7 @@ const mandarino = mandarinoApi({
 1. Discover `discover`
 2. Detect Langauge `detectLanguage`
 3. Generate Sentences `genSentences`
+4. Generate Conversation `genConversation`
 
 ## 1. Discover
 
@@ -52,6 +53,8 @@ mandarino.discover({ content: "从" }).then((character) => {
 }
 ```
 
+---
+
 ## 2. Detect Language
 
 ```js
@@ -61,6 +64,8 @@ mandarino.detectLanguage({ content: "从" }).then((lang) => {
 
 // => 'zh'
 ```
+
+---
 
 ## 3. Generate Sentences
 
@@ -117,4 +122,59 @@ mandarino.genSentences({ content: "从" }).then((sentences) => {
     component: "从",
   },
 ];
+```
+
+---
+
+### 4. Generate Conversation
+
+```js
+
+mandarino
+  .genConversation({
+    lang: "zh",
+    topic: "Booking a High Speed Return Ticket",
+    subtopic: "Travel",
+  })
+  .then((conversations) => {
+    console.log("convos", conversations);
+  });
+
+
+
+// =>
+{
+  title: 'Booking a High Speed Return Ticket - Travel',
+  topic: 'travel',
+  subtopic: 'booking a high speed return ticket',
+  lang: 'zh',
+  conversation: [
+    {
+      input: '你好，请问有高铁往返票吗？',
+      en: 'Hello, do you have high-speed return tickets available?',
+      speaker: 'Customer',
+      roman: 'Nǐ hǎo, qǐngwèn yǒu gāotiě wǎngfǎn piào ma?'
+    },
+    {
+      input: '对不起，高铁往返票已经售罄了。',
+      en: "I'm sorry, the high-speed return tickets are sold out.",
+      speaker: 'Staff',
+      roman: 'Duìbùqǐ, gāotiě wǎngfǎn piào yǐjīng shòuqìng le.'
+    },
+    {
+      input: '那有其他时间的票吗？',
+      en: 'Do you have tickets available for other times?',
+      speaker: 'Customer',
+      roman: 'Nà yǒu qítā shíjiān de piào ma?'
+    },
+    {
+      input: '是的，我们还有晚点的高铁票。',
+      en: 'Yes, we still have high-speed tickets for later times.',
+      speaker: 'Staff',
+      roman: 'Shì de, wǒmen hái yǒu wǎndiǎn de gāotiě piào.'
+    }
+  ],
+  responseTime: 4231.86862501502
+}
+(
 ```
