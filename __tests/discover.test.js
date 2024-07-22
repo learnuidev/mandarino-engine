@@ -4,7 +4,7 @@ const { discover } = require("../src/discover");
 const { ZodError } = require("zod");
 
 describe("discover", () => {
-  it("should return null", async () => {
+  it("should return mandarino validation error object", async () => {
     const config = await discover({
       content: false,
       lang: undefined,
