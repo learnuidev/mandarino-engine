@@ -11,11 +11,7 @@ npm install mandarino
 ## Usage
 
 ```javascript
-// Using Require
-const { mandarinoApi } = require("mandarino");
-
-// Using Import
-// import {  mandarinoApi } from "mandarino";
+import { mandarinoApi } from "mandarino";
 
 const mandarino = mandarinoApi({
   apiKey: "OPENAI_API_KEY",
