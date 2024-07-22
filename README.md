@@ -5,7 +5,7 @@ Mandarino API in JS
 ## Install
 
 ```bash
-npm install mandarino
+npm install mandarino@latest
 ```
 
 ## Usage
