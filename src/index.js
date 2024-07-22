@@ -2,6 +2,7 @@ const { detectLanguage } = require("./detect-language");
 const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
 const { genSentences } = require("./gen-sentences");
+const { getSummary } = require("./get-summary");
 const { listGrammarAnaysis } = require("./list-grammar-analysis");
 
 const mandarinoApi = ({ apiKey }) => {
@@ -21,6 +22,9 @@ const mandarinoApi = ({ apiKey }) => {
     },
     genConversation: async ({ topic, subtopic, lang }) => {
       return genConversation({ topic, subtopic, lang, apiKey });
+    },
+    getSummary: async ({ content, lang }) => {
+      return getSummary({ content, apiKey, lang });
     },
   };
 };
