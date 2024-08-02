@@ -25,6 +25,7 @@ const {
   genSentences,
   genConversation,
   getSummary,
+  listComponents,
 } = mandarino;
 ```
 
@@ -38,6 +39,7 @@ const {
 4. Generate Sentences `genSentences`
 5. Generate Conversation `genConversation`
 6. Get Summary `getSummary`
+7. List Components `listComponents`
 
 ## 1. Discover
 
@@ -221,6 +223,8 @@ mandarino
 
 ```
 
+---
+
 ### 6. Get Summary
 
 ```js
@@ -241,4 +245,35 @@ The phrase "不但...而且..." is used to express a contrast or addition betwee
 Possible use cases:
 This phrase can be used to highlight a dual effect, action, or situation, emphasizing that both aspects are relevant or important. For example, "不但漂亮，而且聪明" means "Not only beautiful, but also smart." This structure can be applied in various contexts such as describing qualities of a person, product features, or comparing different options.
 `;
+```
+
+---
+
+#### 7. List Components
+
+`listComponents` is a synchronous function that returns a list of components
+
+```js
+const components = mandarino.listComponents();
+
+console.log(components[0]);
+
+// =>
+{
+    initial: 'd',
+    en: 'electric',
+    pinyin: 'diàn',
+    group: 'diàn',
+    data_version: '2023-10-07',
+    updated_at: 1700684107708,
+    count: 291,
+    grammar_type: 'noun',
+    tone_level: 4,
+    level: 43,
+    final: 'iàn',
+    id: '8e13afa5-f14b-5a14-ab4e-acbe51281b58',
+    hanzi: '电',
+    nmmIndex: 100,
+    hskIndex: 41
+}
 ```
