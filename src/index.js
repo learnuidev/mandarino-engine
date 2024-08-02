@@ -3,6 +3,7 @@ const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
 const { genSentences } = require("./gen-sentences");
 const { getSummary } = require("./get-summary");
+const { listComponents } = require("./list-components");
 const { listGrammarAnaysis } = require("./list-grammar-analysis");
 
 const mandarinoApi = ({ apiKey }) => {
@@ -26,6 +27,8 @@ const mandarinoApi = ({ apiKey }) => {
     getSummary: async ({ content, lang }) => {
       return getSummary({ content, apiKey, lang });
     },
+
+    listComponents: listComponents,
   };
 };
 
