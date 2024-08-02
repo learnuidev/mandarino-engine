@@ -34,4 +34,5 @@ const mandarinoApi = ({ apiKey }) => {
 
 module.exports = {
   mandarinoApi,
+  listComponents,
 };
