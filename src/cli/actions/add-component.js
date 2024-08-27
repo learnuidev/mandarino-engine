@@ -1,4 +1,5 @@
-const fs = require("fs").promises;
+const fsPromises = require("fs").promises;
+const fs = require("fs");
 const path = require("path");
 const { components } = require("../components");
 
@@ -28,15 +29,16 @@ const addComponent = (name) => {
   }
 
   try {
-    fs.writeFile(pathName, component?.code).then(() => {
+    fsPromises.writeFile(pathName, component?.code).then(() => {
       console.log(`${name}: successfully installed`);
     });
   } catch (err) {
-    fs.mkdir(directoryPath)
+    fsPromises
+      .mkdir(directoryPath)
       .then(function () {
         console.log("Directory created successfully");
 
-        fs.writeFile(pathName, component?.code).then(() => {
+        fsPromises.writeFile(pathName, component?.code).then(() => {
           console.log(`${name}: successfully installed`);
         });
       })
