@@ -1,6 +1,6 @@
 {
   "name": "mandarino",
-  "version": "27.08.2024.02.43",
+  "version": "27.08.2024.02.45",
   "description": "Official Mandarino SDK [TypeScript coming soon]",
   "main": "src/index.js",
   "bin": {
