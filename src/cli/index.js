@@ -5,8 +5,8 @@ const { Command } = require("commander"); // add this line
 // const fs = require("fs");
 // const path = require("path");
 
-const { listDirectoryNames } = require("./actions/list-directory-names");
-const { getComponent } = require("./actions/get-component");
+// const { listDirectoryNames } = require("./actions/list-directory-names");
+// const { getComponent } = require("./actions/get-component");
 const { addComponent } = require("./actions/add-component");
 
 //add the following line
@@ -23,25 +23,25 @@ program
 
 const options = program.opts();
 
-if (options.ls) {
-  const filepath = typeof options.ls === "string" ? options.ls : __dirname;
+// if (options.ls) {
+//   const filepath = typeof options.ls === "string" ? options.ls : __dirname;
 
-  listDirectoryNames().then((names) => {
-    console.log(names);
-  });
-}
+//   listDirectoryNames().then((names) => {
+//     console.log(names);
+//   });
+// }
 
-if (options.c) {
-  const filepath = typeof options.ls === "string" ? options.ls : __dirname;
-  const [a, b, c, directoryPath, name] = process.argv;
+// if (options.c) {
+//   const filepath = typeof options.ls === "string" ? options.ls : __dirname;
+//   const [a, b, c, directoryPath, name] = process.argv;
 
-  getComponent({
-    name: name || "no-lesson-view.tsx",
-    directoryPath: directoryPath || "nmm",
-  }).then((names) => {
-    console.log(names);
-  });
-}
+//   getComponent({
+//     name: name || "no-lesson-view.tsx",
+//     directoryPath: directoryPath || "nmm",
+//   }).then((names) => {
+//     console.log(names);
+//   });
+// }
 
 if (options.add) {
   addComponent(options.add);
