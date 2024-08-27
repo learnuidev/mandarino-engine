@@ -82,8 +82,6 @@ export const StepDebugger = () => {
     </div>
   );
 };
-
-
 `;
 
 const step = {
