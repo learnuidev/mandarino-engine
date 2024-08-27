@@ -5,8 +5,6 @@ const { Command } = require("commander"); // add this line
 // const fs = require("fs");
 // const path = require("path");
 
-// const { listDirectoryNames } = require("./actions/list-directory-names");
-// const { getComponent } = require("./actions/get-component");
 const { addComponent } = require("./actions/add-component");
 
 //add the following line

@@ -5,6 +5,7 @@ const detectLanguage = {
   id: "detect-language",
   code: detectLanguageCode,
   basePath: "./mandarino",
+  baseExtension: "js",
 };
 
 module.exports.detectLanguage = detectLanguage;
