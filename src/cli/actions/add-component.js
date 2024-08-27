@@ -36,11 +36,15 @@ const addComponent = (name) => {
     fsPromises
       .mkdir(directoryPath)
       .then(function () {
-        console.log("Directory created successfully");
+        try {
+          console.log("Directory created successfully");
 
-        fsPromises.writeFile(pathName, component?.code).then(() => {
-          console.log(`${name}: successfully installed`);
-        });
+          fsPromises.writeFile(pathName, component?.code).then(() => {
+            console.log(`${name}: successfully installed`);
+          });
+        } catch (err) {
+          console.log("ERR");
+        }
       })
       .catch(function () {
         console.log("failed to create directory");
