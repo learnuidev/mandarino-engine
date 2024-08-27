@@ -1,8 +1,11 @@
 {
   "name": "mandarino",
-  "version": "02.08.2024.01.03",
+  "version": "27.08.2024.02.31",
   "description": "Official Mandarino SDK [TypeScript coming soon]",
   "main": "src/index.js",
+  "bin": {
+    "mandarino": "src/cli/index.js"
+  },
   "scripts": {
     "test": "npx mocha __tests/**/*.js",
     "test:watch": "npx mocha __tests/* --watch"
