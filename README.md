@@ -252,7 +252,7 @@ This phrase can be used to highlight a dual effect, action, or situation, emphas
 
 #### 7. List Components
 
-`listComponents` is a synchronous function that returns a list of components
+`listComponents` is a synchronous function that returns a list of components. It uses `gpt-4o-mini` under da hood
 
 ```js
 const components = mandarino.listComponents();
