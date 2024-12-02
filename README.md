@@ -292,86 +292,302 @@ const components = await mandarino.extractImage({
 console.log(components);
 
 // =>
+// Latency:  15623.749208
 [
+  {
+    hanzi: "手工调制咖啡",
+    pinyin: "Shǒugōng tiáozhì kāfēi",
+    en: "Handcrafted Coffee",
+  },
+  {
+    hanzi: "经典咖啡",
+    pinyin: "Jīngdiǎn kāfēi",
+    en: "Classic Coffee",
+  },
+  {
+    hanzi: "馨茸白®",
+    pinyin: "Xīnróng bái",
+    en: "Flat White",
+  },
+  {
+    hanzi: "拿铁/卡布奇诺",
+    pinyin: "Ná tiě/Kǎ bù qí nuò",
+    en: "Caffè Latte/Cappuccino",
+  },
+  {
+    hanzi: "浓郁咖啡拿铁",
+    pinyin: "Nóngyù kāfēi ná tiě",
+    en: "Extra Shot Latte",
+  },
+  {
+    hanzi: "焦糖玛奇朵",
+    pinyin: "Jiāotáng mǎqíduǒ",
+    en: "Caramel Macchiato",
+  },
+  {
+    hanzi: "香草/榛果风味拿铁",
+    pinyin: "Xiāngcǎo/Zhēnguǒ fēngwèi ná tiě",
+    en: "Vanilla/Hazelnut Flavored Latte",
+  },
+  {
+    hanzi: "摩卡",
+    pinyin: "Mókǎ",
+    en: "Caffè Mocha",
+  },
+  {
+    hanzi: "美式咖啡",
+    pinyin: "Měishì kāfēi",
+    en: "Caffè Americano",
+  },
+  {
+    hanzi: "鲜萃滴漏咖啡",
+    pinyin: "Xiāncuì dīlòu kāfēi",
+    en: "Immersion Brewer Coffee",
+  },
+  {
+    hanzi: "推荐咖啡是：佛罗娜/哥伦比亚",
+    pinyin: "Tuījiàn kāfēi shì: Fóluónà/Gēlúnbǐyà",
+    en: "Recommended coffee: Verona/Colombia",
+  },
+  {
+    hanzi: "植物基选择",
+    pinyin: "Zhíwù jī xuǎnzé",
+    en: "Plant-Based Choice",
+  },
+  {
+    hanzi: "燕麦拿铁/巴旦木拿铁",
+    pinyin: "Yànmài ná tiě/Bādànmù ná tiě",
+    en: "Oat Milk Latte/Almond Latte",
+  },
+  {
+    hanzi: "燕麦丝绒拿铁",
+    pinyin: "Yànmài sīróng ná tiě",
+    en: "Oat Milk Velvet Latte",
+  },
+  {
+    hanzi: "燕麦焦糖玛奇朵",
+    pinyin: "Yànmài jiāotáng mǎqíduǒ",
+    en: "Oat Milk Caramel Macchiato",
+  },
+  {
+    hanzi: "大溪地香草风味巴旦木拿铁",
+    pinyin: "Dàxī dì xiāngcǎo fēngwèi bādànmù ná tiě",
+    en: "Tahitian Vanilla Flavored Almond Latte",
+  },
+  {
+    hanzi: "榛果风味巴旦木拿铁",
+    pinyin: "Zhēnguǒ fēngwèi bādànmù ná tiě",
+    en: "Hazelnut Flavored Almond Latte",
+  },
+];
+```
+
+You can also pass `includeCoordinates`, if you want to extract coordinates of the image. Warning though it comes with cost: latency and may return innaccurate results. Please see below
+
+##### **Example**
+
+```js
+const components = await mandarino.extractImage(
+  {
+    imageUrl:
+      "https://active.starbucks.com.cn/sortable/2dfd57e3-a38d-4405-beaa-3950f625bcb6.jpg",
+  },
+  {
+    includeCoordinates: true,
+  }
+);
+
+console.log(components);
+
+// =>
+// Latency: 26246.31725
+[
+  {
+    hanzi: "手工调制咖啡",
+    pinyin: "shǒu gōng tiáo zhì kā fēi",
+    en: "Handcrafted Coffee",
+    coordinates: {
+      x: 40,
+      y: 40,
+      width: 220,
+      height: 30,
+    },
+  },
   {
     hanzi: "经典咖啡",
     pinyin: "jīng diǎn kā fēi",
     en: "Classic Coffee",
+    coordinates: {
+      x: 40,
+      y: 80,
+      width: 100,
+      height: 30,
+    },
   },
   {
-    hanzi: " flat White",
-    pinyin: "fān qié bái",
+    hanzi: "扁茄白®",
+    pinyin: "biǎn qié bái",
     en: "Flat White",
+    coordinates: {
+      x: 40,
+      y: 120,
+      width: 130,
+      height: 30,
+    },
   },
   {
     hanzi: "拿铁/卡布奇诺",
     pinyin: "ná tiě / kǎ bù qí nuò",
     en: "Caffè Latte/Cappuccino",
+    coordinates: {
+      x: 40,
+      y: 160,
+      width: 200,
+      height: 30,
+    },
   },
   {
-    hanzi: "额外浓咖啡",
-    pinyin: "é wài nóng kā fēi",
+    hanzi: "_extra shot latte_",
+    pinyin: "zhòng diǎn kā fēi",
     en: "Extra Shot Latte",
+    coordinates: {
+      x: 40,
+      y: 200,
+      width: 120,
+      height: 30,
+    },
   },
   {
-    hanzi: "焦糖玛奇朵",
-    pinyin: "jiāo táng mǎ qí duǒ",
+    hanzi: "焦糖玛奇诺",
+    pinyin: "jiāo táng mǎ qí nuò",
     en: "Caramel Macchiato",
+    coordinates: {
+      x: 40,
+      y: 240,
+      width: 140,
+      height: 30,
+    },
   },
   {
-    hanzi: "香草/榛果风味拿铁",
-    pinyin: "xiāng cǎo / zhēn guǒ fēng wèi ná tiě",
+    hanzi: "香草/榛子风味拿铁",
+    pinyin: "xiāng cǎo / zhēn zǐ fēng wèi ná tiě",
     en: "Vanilla/Hazelnut Flavored Latte",
+    coordinates: {
+      x: 40,
+      y: 280,
+      width: 200,
+      height: 30,
+    },
   },
   {
     hanzi: "摩卡",
     pinyin: "mó kǎ",
     en: "Caffè Mocha",
+    coordinates: {
+      x: 40,
+      y: 320,
+      width: 80,
+      height: 30,
+    },
   },
   {
     hanzi: "美式咖啡",
     pinyin: "měi shì kā fēi",
     en: "Caffè Americano",
+    coordinates: {
+      x: 40,
+      y: 360,
+      width: 90,
+      height: 30,
+    },
   },
   {
-    hanzi: "浸泡式咖啡",
-    pinyin: "jìn pào shì kā fēi",
+    hanzi: "鲜萃浸泡咖啡",
+    pinyin: "xiān cuì jìn pào kā fēi",
     en: "Immersion Brewer Coffee",
+    coordinates: {
+      x: 40,
+      y: 400,
+      width: 140,
+      height: 30,
+    },
   },
   {
     hanzi: "推荐咖啡是：佛罗娜/哥伦比亚",
-    pinyin: "tuī jiàn kā fēi shì: fó luó nà / gē lún bǐ yà",
-    en: "Recommended coffee: Verona/Colombia",
+    pinyin: "tuī jiàn kā fēi shì: fó luó nà / gē lún bǐ yǎ",
+    en: "Recommended Coffee: Verona/Colombia",
+    coordinates: {
+      x: 40,
+      y: 440,
+      width: 250,
+      height: 30,
+    },
   },
   {
     hanzi: "植物基选择",
     pinyin: "zhí wù jī xuǎn zé",
     en: "Plant-Based Choice",
+    coordinates: {
+      x: 40,
+      y: 480,
+      width: 120,
+      height: 30,
+    },
   },
   {
     hanzi: "燕麦拿铁/巴旦木拿铁",
-    pinyin: "yān mài ná tiě / bā dàn mù ná tiě",
+    pinyin: "yàn mài ná tiě / bā dàn mù ná tiě",
     en: "Oat Milk Latte/Almond Latte",
+    coordinates: {
+      x: 40,
+      y: 520,
+      width: 180,
+      height: 30,
+    },
   },
   {
     hanzi: "燕麦丝绒拿铁",
-    pinyin: "yān mài sī róng ná tiě",
+    pinyin: "yàn mài sī róng ná tiě",
     en: "Oat Milk Velvet Latte",
+    coordinates: {
+      x: 40,
+      y: 560,
+      width: 100,
+      height: 30,
+    },
   },
   {
-    hanzi: "燕麦焦糖玛奇朵",
-    pinyin: "yān mài jiāo táng mǎ qí duǒ",
+    hanzi: "燕麦焦糖玛奇诺",
+    pinyin: "yàn mài jiāo táng mǎ qí nuò",
     en: "Oat Milk Caramel Macchiato",
+    coordinates: {
+      x: 40,
+      y: 600,
+      width: 160,
+      height: 30,
+    },
   },
   {
     hanzi: "大溪地香草风味巴旦木拿铁",
     pinyin: "dà xī dì xiāng cǎo fēng wèi bā dàn mù ná tiě",
     en: "Tahitian Vanilla Flavored Almond Latte",
+    coordinates: {
+      x: 40,
+      y: 640,
+      width: 220,
+      height: 30,
+    },
   },
   {
-    hanzi: "榛果风味巴旦木拿铁",
-    pinyin: "zhēn guǒ fēng wèi bā dàn mù ná tiě",
+    hanzi: "榛子风味巴旦木拿铁",
+    pinyin: "zhēn zǐ fēng wèi bā dàn mù ná tiě",
     en: "Hazelnut Flavored Almond Latte",
+    coordinates: {
+      x: 40,
+      y: 680,
+      width: 180,
+      height: 30,
+    },
   },
 ];
 ```

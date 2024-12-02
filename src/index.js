@@ -3,7 +3,14 @@ const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
 const { genSentences } = require("./gen-sentences");
 const { getSummary } = require("./get-summary");
-const { extractImage } = require("./image/extract-image");
+const { extractImage } = require("./image/extract-image/extract-image");
+const {
+  starBucksMenu,
+} = require("./image/extract-image/responses/starbucks-menu");
+const {
+  starBucksMenuWithCoordinates,
+} = require("./image/extract-image/responses/starbucks-menu-with-coordinates");
+
 const { listComponents } = require("./list-components");
 const { listGrammarAnaysis } = require("./list-grammar-analysis");
 const { chineseConverter, isChinese } = require("./utils/chinese-converter");
@@ -43,4 +50,6 @@ module.exports = {
   listComponents,
   chineseConverter,
   isChinese,
+  starBucksMenu,
+  starBucksMenuWithCoordinates,
 };
