@@ -2,6 +2,7 @@ const OpenAI = require("openai");
 
 const { resolveHumanLangs } = require("./langs");
 const { detectLanguage } = require("./detect-language");
+const { models } = require("./data/models");
 
 const promptLatin = `
 You are a language expert, given the content, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
@@ -130,7 +131,7 @@ async function _genSentences({ content, lang, apiKey }) {
         content: `content: ${content}`,
       },
     ],
-    model: "gpt-3.5-turbo",
+    model: models.mini4o,
   });
 
   const resp = await JSON.parse(chatCompletion?.choices?.[0]?.message?.content);
@@ -178,9 +179,14 @@ async function genSentences({ content, lang, apiKey }) {
 
 module.exports.genSentences = genSentences;
 
-// genSentences({ content: "们" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
+genSentences({
+  content: "们",
+  lang: "zh",
+  apiKey:
+    "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",
+}).then((lang) => {
+  console.log("LANG", lang);
+});
 // genSentences({ content: "el dueño" }).then((lang) => {
 //   console.log("LANG", lang);
 // });

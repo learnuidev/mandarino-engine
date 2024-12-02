@@ -6,6 +6,7 @@ const OpenAI = require("openai");
 const { detectLanguage } = require("./detect-language");
 const { resolveDiscoverPrompt } = require("./discover.prompts");
 const { removeNull } = require("./utils/remove-null");
+const { models } = require("./data/models");
 const z = require("zod").z;
 
 const discoverSchema = z.object({
@@ -49,7 +50,7 @@ const discover = async ({ content, lang, apiKey }) => {
         },
         { role: "user", content: `content: ${content}` },
       ],
-      model: "gpt-3.5-turbo",
+      model: models.mini4o,
     });
 
     const resp = await chatCompletion?.choices?.[0]?.message?.content;
@@ -85,17 +86,21 @@ const discover = async ({ content, lang, apiKey }) => {
 };
 
 // Test 1
-// discover(
-//   "这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。"
-// ).then((resp) => {
-//   console.log("RESP", resp);
-// });
-// // RESP {
-// //   hanzi: '这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。',
-// //   pinyin: 'Zhè biǎomíng xīn kǎi lái jìshù yǒuxiàn gōngsī zài DUV pùguāng jìshù fāngmiàn yǔ huáwèi yǒuzhe mìqiè de hézuò guānxì.',
-// //   en: 'This indicates that New Kelly Technology Co., Ltd. has a close cooperation with Huawei in the field of DUV exposure technology.',
-// //   discoveredAt: 1712254442674
-// // }
+discover({
+  content:
+    "这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。",
+  lang: "zh",
+  apiKey:
+    "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",
+}).then((resp) => {
+  console.log("RESP", resp);
+});
+// RESP {
+//   hanzi: '这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。',
+//   pinyin: 'Zhè biǎomíng xīn kǎi lái jìshù yǒuxiàn gōngsī zài DUV pùguāng jìshù fāngmiàn yǔ huáwèi yǒuzhe mìqiè de hézuò guānxì.',
+//   en: 'This indicates that New Kelly Technology Co., Ltd. has a close cooperation with Huawei in the field of DUV exposure technology.',
+//   discoveredAt: 1712254442674
+// }
 
 // Test 2
 // discover("这").then((resp) => {

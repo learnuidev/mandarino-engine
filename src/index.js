@@ -3,8 +3,10 @@ const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
 const { genSentences } = require("./gen-sentences");
 const { getSummary } = require("./get-summary");
+const { extractImage } = require("./image/extract-image");
 const { listComponents } = require("./list-components");
 const { listGrammarAnaysis } = require("./list-grammar-analysis");
+const { chineseConverter, isChinese } = require("./utils/chinese-converter");
 
 const mandarinoApi = ({ apiKey }) => {
   return {
@@ -28,6 +30,10 @@ const mandarinoApi = ({ apiKey }) => {
       return getSummary({ content, apiKey, lang });
     },
 
+    extractImage: async ({ imageUrl }) => {
+      return extractImage({ apiKey, imageUrl });
+    },
+
     listComponents: listComponents,
   };
 };
@@ -35,4 +41,6 @@ const mandarinoApi = ({ apiKey }) => {
 module.exports = {
   mandarinoApi,
   listComponents,
+  chineseConverter,
+  isChinese,
 };
