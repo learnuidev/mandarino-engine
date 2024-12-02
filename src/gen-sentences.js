@@ -173,20 +173,13 @@ async function genSentences({ content, lang, apiKey }) {
 
     return sents;
   } catch (err) {
+    console.log("ERR", err);
     return [];
   }
 }
 
 module.exports.genSentences = genSentences;
 
-genSentences({
-  content: "们",
-  lang: "zh",
-  apiKey:
-    "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",
-}).then((lang) => {
-  console.log("LANG", lang);
-});
 // genSentences({ content: "el dueño" }).then((lang) => {
 //   console.log("LANG", lang);
 // });
