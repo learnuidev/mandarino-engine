@@ -608,4 +608,12 @@ Examples
 ```js
 chineseConverter("你好。你叫什麼名字");
 // => 你好。你叫什么名字
+
+// or
+chineseConverter({ input: "你好。你叫什麼名字", from: "traditional" });
+// => 你好。你叫什么名字
+
+// you can also convert traditional to simplified
+chineseConverter({ input: "你好。你叫什么名字", from: "simplified" });
+// => 你好。你叫什麼名字
 ```
