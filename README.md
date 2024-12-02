@@ -11,7 +11,7 @@ npm install mandarino@latest
 ## Usage
 
 ```javascript
-import { mandarinoApi } from "mandarino";
+import { mandarinoApi, chineseConverter, isChinese } from "mandarino";
 
 const mandarino = mandarinoApi({
   apiKey: "OPENAI_API_KEY",
@@ -26,6 +26,7 @@ const {
   genConversation,
   getSummary,
   listComponents,
+  extractText,
 } = mandarino;
 ```
 
@@ -171,7 +172,7 @@ mandarino.genSentences({ content: "从" }).then((sentences) => {
 
 ---
 
-### 5. Generate Conversation
+## 5. Generate Conversation
 
 ```js
 
@@ -226,7 +227,7 @@ mandarino
 
 ---
 
-### 6. Get Summary
+## 6. Get Summary
 
 ```js
 mandarino
@@ -250,7 +251,7 @@ This phrase can be used to highlight a dual effect, action, or situation, emphas
 
 ---
 
-#### 7. List Components
+## 7. List Components
 
 `listComponents` is a synchronous function that returns a list of components. It uses `gpt-4o-mini` under da hood
 
@@ -279,7 +280,9 @@ console.log(components[0]);
 }
 ```
 
-#### 7. Extract Text
+---
+
+## 8. Extract Text
 
 `extractImage` accepts `imageUrl` and returns a list of extacted text (hanzi, pinyin and en) in JSON format
 
@@ -590,4 +593,19 @@ console.log(components);
     },
   },
 ];
+```
+
+---
+
+# Other API's
+
+## 1. Chinese Converter `chineseConverter`
+
+Utility function to convert traditional chinese to simplified (and vice versa)
+
+Examples
+
+```js
+chineseConverter("你好。你叫什麼名字");
+// => 你好。你叫什么名字
 ```
