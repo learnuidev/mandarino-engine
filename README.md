@@ -26,7 +26,7 @@ const {
   genConversation,
   getSummary,
   listComponents,
-  extractText,
+  extractImage,
 } = mandarino;
 ```
 
@@ -282,7 +282,7 @@ console.log(components[0]);
 
 ---
 
-## 8. Extract Text
+## 8. Extract Image
 
 `extractImage` accepts `imageUrl` and returns a list of extacted text (hanzi, pinyin and en) in JSON format
 
