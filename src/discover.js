@@ -86,15 +86,15 @@ const discover = async ({ content, lang, apiKey }) => {
 };
 
 // Test 1
-discover({
-  content:
-    "这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。",
-  lang: "zh",
-  apiKey:
-    "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",
-}).then((resp) => {
-  console.log("RESP", resp);
-});
+// discover({
+//   content:
+//     "这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。",
+//   lang: "zh",
+//   apiKey:
+//     "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",
+// }).then((resp) => {
+//   console.log("RESP", resp);
+// });
 // RESP {
 //   hanzi: '这表明新凯来技术有限公司在DUV曝光技术方面与华为有着密切的合作关系。',
 //   pinyin: 'Zhè biǎomíng xīn kǎi lái jìshù yǒuxiàn gōngsī zài DUV pùguāng jìshù fāngmiàn yǔ huáwèi yǒuzhe mìqiè de hézuò guānxì.',
