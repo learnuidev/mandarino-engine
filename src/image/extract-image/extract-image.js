@@ -1,5 +1,4 @@
-const OpenAI = require("openai");
-const { models } = require("../../data/models");
+const { parseInput } = require("../../utils/parse-input");
 
 function parseString(inputString) {
   // Remove the "```json" and "```" markers
@@ -9,7 +8,7 @@ function parseString(inputString) {
 
   // Parse the JSON string
   try {
-    const parsedData = JSON.parse(jsonString);
+    const parsedData = parseInput(jsonString);
     return parsedData;
   } catch (error) {
     console.error("Error parsing JSON:", error);
@@ -36,17 +35,13 @@ Please provide the response in stringified JSON format. For example
 `;
 
 const extractImage = async (
-  { imageUrl, apiKey },
+  { imageUrl, openai, model },
   { includeCoordinates } = {}
 ) => {
   const t0 = performance.now();
 
-  const openai = new OpenAI({
-    apiKey: apiKey,
-  });
-
   const response = await openai.chat.completions.create({
-    model: models.mini4o,
+    model: model,
     messages: [
       {
         role: "user",

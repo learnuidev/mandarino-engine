@@ -1,8 +1,6 @@
-const OpenAI = require("openai");
-
 const { resolveHumanLangs } = require("./langs");
 const { detectLanguage } = require("./detect-language");
-const { models } = require("./data/models");
+const { parseInput } = require("./utils/parse-input");
 
 const promptLatin = `
 You are a language expert, given the content, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
@@ -103,7 +101,7 @@ const prompts = {
   nepali: promptNonRoman,
 };
 
-async function _genSentences({ content, lang, apiKey }) {
+async function _genSentences({ content, lang, openai, model }) {
   console.log(`Generating sentences for: ${content}`);
 
   console.log("lang: ", lang);
@@ -116,10 +114,6 @@ async function _genSentences({ content, lang, apiKey }) {
 
   console.log("FINAL PROMPT", finalPrompt);
 
-  const openai = new OpenAI({
-    apiKey,
-  });
-
   const chatCompletion = await openai.chat.completions.create({
     messages: [
       {
@@ -131,10 +125,10 @@ async function _genSentences({ content, lang, apiKey }) {
         content: `content: ${content}`,
       },
     ],
-    model: models.mini4o,
+    model: model,
   });
 
-  const resp = await JSON.parse(chatCompletion?.choices?.[0]?.message?.content);
+  const resp = await parseInput(chatCompletion?.choices?.[0]?.message?.content);
 
   // return chatCompletion?.choices?.[0]?.message?.content;
 
@@ -149,11 +143,12 @@ async function _genSentences({ content, lang, apiKey }) {
   });
 }
 
-async function genSentences({ content, lang, apiKey }) {
+async function genSentences({ content, lang, openai, model }) {
   console.log("genSentences/detecting language...");
 
   const resolvedLang =
-    lang || (await detectLanguage({ content: content?.slice(0, 16), apiKey }));
+    lang ||
+    (await detectLanguage({ content: content?.slice(0, 16), openai, model }));
 
   console.log("genSentences/lang", lang);
   try {
@@ -161,7 +156,8 @@ async function genSentences({ content, lang, apiKey }) {
     const sents = await _genSentences({
       content: content.toLowerCase(),
       lang: resolvedLang,
-      apiKey,
+      openai,
+      model,
     });
     const t1 = performance.now();
 

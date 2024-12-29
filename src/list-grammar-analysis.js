@@ -1,4 +1,3 @@
-const OpenAI = require("openai");
 const {
   ml,
   es,
@@ -8,6 +7,7 @@ const {
 
 const { resolveHumanLangs } = require("./langs");
 const { detectLanguage } = require("./detect-language");
+const { parseInput } = require("./utils/parse-input");
 
 function determineAnalysisPrompt({ lang }) {
   switch (lang) {
@@ -35,12 +35,8 @@ function determineAnalysisPrompt({ lang }) {
   }
 }
 
-async function listSentences({ content, lang, apiKey }) {
+async function listSentences({ content, lang, openai, model }) {
   console.log(`Generating grammar for: ${content}`);
-
-  const openai = new OpenAI({
-    apiKey: apiKey,
-  });
 
   const prompt = determineAnalysisPrompt({ lang });
   console.log("list-grammar-analysis/lang", lang);
@@ -56,26 +52,27 @@ async function listSentences({ content, lang, apiKey }) {
       },
       { role: "user", content: `content: ${content}` },
     ],
-    model: "gpt-3.5-turbo",
+    model,
   });
 
-  const resp = await JSON.parse(chatCompletion?.choices?.[0]?.message?.content);
+  const resp = await parseInput(chatCompletion?.choices?.[0]?.message?.content);
 
   return resp;
 }
 
-async function listGrammarAnaysis({ content, lang, apiKey }) {
+async function listGrammarAnaysis({ content, lang, openai, model }) {
   try {
     const t0 = performance.now();
 
     const resolvedLang =
       lang ||
-      (await detectLanguage({ content: content?.slice(0, 16), apiKey }));
+      (await detectLanguage({ content: content?.slice(0, 16), openai, model }));
 
     const sents = await listSentences({
       content,
       lang: resolvedLang,
-      apiKey,
+      openai,
+      model,
     });
 
     console.log("SENTS", sents);

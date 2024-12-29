@@ -1,6 +1,5 @@
-const OpenAI = require("openai");
-
 const { resolveHumanLangs } = require("./langs");
+const { parseInput } = require("./utils/parse-input");
 
 const prompt = `
 You are a {{lang}} language expert. give me a conversation  sentences on {{topic}} - {{subtopic}}. please provide english and roman in json format
@@ -23,12 +22,8 @@ Please use the following json format:
     },
 
 `;
-async function _genConversation({ lang, topic, subtopic, apiKey }) {
+async function _genConversation({ lang, topic, subtopic, openai, model }) {
   console.log(`Generating conversation for: ${topic} - ${subtopic}`);
-
-  const openai = new OpenAI({
-    apiKey,
-  });
 
   const resolvedPrompt = prompt
     .replaceAll("{{lang}}", lang)
@@ -48,17 +43,17 @@ async function _genConversation({ lang, topic, subtopic, apiKey }) {
         content: finalPrompt,
       },
     ],
-    model: "gpt-3.5-turbo",
+    model,
   });
 
-  const resp = await JSON.parse(chatCompletion?.choices?.[0]?.message?.content);
+  const resp = await parseInput(chatCompletion?.choices?.[0]?.message?.content);
 
   console.log("RESP", resp);
 
   return resp;
 }
 
-async function genConversation({ lang, topic, subtopic, apiKey }) {
+async function genConversation({ lang, topic, subtopic, openai, model }) {
   console.log("genConversation/detecting language...");
 
   try {
@@ -67,7 +62,8 @@ async function genConversation({ lang, topic, subtopic, apiKey }) {
       lang,
       topic,
       subtopic,
-      apiKey,
+      openai,
+      model,
     });
     const t1 = performance.now();
 

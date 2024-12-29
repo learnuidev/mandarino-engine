@@ -2,19 +2,30 @@
 
 Mandarino API in JS
 
+## Features
+
+- Multi Model support: can either use openai or deepseek 🤗
+
 ## Install
 
 ```bash
 npm install mandarino@latest
 ```
 
-## Usage
+## Usage via OpenAI
 
 ```javascript
 import { mandarinoApi, chineseConverter, isChinese } from "mandarino";
 
 const mandarino = mandarinoApi({
+  apiKey: "DEEPSEEK_API_KEY",
+  variant: "deepseek",
+});
+
+// or
+const mandarino = mandarinoApi({
   apiKey: "OPENAI_API_KEY",
+  variant: "openai",
 });
 
 // Available Features
@@ -32,7 +43,7 @@ const {
 
 ---
 
-## Feature Usage Guide
+## API Feature Usage Guide
 
 1. Discover `discover`
 2. Grammar Analysis `listGrammarAnalysis`

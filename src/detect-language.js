@@ -1,10 +1,4 @@
-const OpenAI = require("openai");
-
-async function detectLanguage({ content, apiKey }) {
-  const openai = new OpenAI({
-    apiKey: apiKey,
-  });
-
+async function detectLanguage({ content, openai, model }) {
   const chatCompletion = await openai.chat.completions.create({
     messages: [
       {
@@ -28,7 +22,7 @@ gelato should return it
       },
       { role: "user", content: `content: ${content}` },
     ],
-    model: "gpt-3.5-turbo",
+    model,
   });
 
   const resp = chatCompletion?.choices?.[0]?.message?.content;

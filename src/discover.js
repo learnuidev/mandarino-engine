@@ -1,41 +1,32 @@
 // An endpoints that checks if the character exisits or not
 // if it does - then adds pinyin and english, pinyin level, initial and final to the component and saves it
 // if it does not then creates a new component and adds pinyin, english, initial, final and group
-const OpenAI = require("openai");
 
 const { detectLanguage } = require("./detect-language");
 const { resolveDiscoverPrompt } = require("./discover.prompts");
 const { removeNull } = require("./utils/remove-null");
-const { models } = require("./data/models");
+
+const { parseInput } = require("./utils/parse-input");
 const z = require("zod").z;
 
 const discoverSchema = z.object({
   content: z.string(),
   lang: z.string().nullable().optional(),
-  apiKey: z.string(),
 });
 
-const discover = async ({ content, lang, apiKey }) => {
-  const openai = new OpenAI({
-    apiKey: apiKey,
-  });
+const discover = async ({ openai, content, lang, model }) => {
   const t0 = performance.now();
 
   try {
-    discoverSchema.parse({ content, lang, apiKey });
+    discoverSchema.parse({ content, lang });
   } catch (err) {
     // console.log("ERR", err);
-    return {
-      error: true,
-      message: err.issues
-        ?.map((issue) => `${issue?.path?.[0]}: ${issue?.message}`)
-        ?.join(". "),
-      issues: err.issues,
-    };
+    throw err;
   }
 
   try {
-    const resolvedLang = lang || (await detectLanguage({ content, apiKey }));
+    const resolvedLang =
+      lang || (await detectLanguage({ content, openai, model }));
 
     const prompt = resolveDiscoverPrompt({ content, lang: resolvedLang });
 
@@ -50,7 +41,7 @@ const discover = async ({ content, lang, apiKey }) => {
         },
         { role: "user", content: `content: ${content}` },
       ],
-      model: models.mini4o,
+      model: model,
     });
 
     const resp = await chatCompletion?.choices?.[0]?.message?.content;
@@ -61,7 +52,7 @@ const discover = async ({ content, lang, apiKey }) => {
 
     // eslint-disable-next-line no-useless-catch
     try {
-      const item = JSON.parse(resp);
+      const item = parseInput(resp);
 
       return removeNull({
         ...item,
@@ -72,16 +63,9 @@ const discover = async ({ content, lang, apiKey }) => {
       });
     } catch (err) {
       throw err;
-      // return removeNull({
-      //   raw: resp,
-      // });
     }
   } catch (err) {
-    return {
-      error: true,
-      message: err.message,
-    };
-    // throw err.message;
+    throw err;
   }
 };
 

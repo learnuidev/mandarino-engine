@@ -1,4 +1,3 @@
-const OpenAI = require("openai");
 const { detectLanguage } = require("./detect-language");
 
 // const { openaiEnv } = require("./open-api-key");
@@ -91,14 +90,11 @@ const resolvePrompt = async ({ content, lang }) => {
   }
   return prompt;
 };
-async function getSummary({ content, lang, apiKey }) {
-  const resolvedLang = lang || (await detectLanguage({ content, apiKey }));
+async function getSummary({ content, lang, openai, model }) {
+  const resolvedLang =
+    lang || (await detectLanguage({ content, openai, model }));
   try {
     console.log(`Generating Summary for: ${content}`);
-
-    const openai = new OpenAI({
-      apiKey: apiKey,
-    });
 
     const resolvedPrompt = await resolvePrompt({ content, lang: resolvedLang });
     const chatCompletion = await openai.chat.completions.create({
@@ -111,7 +107,7 @@ async function getSummary({ content, lang, apiKey }) {
         },
         { role: "user", content: `content: ${content}` },
       ],
-      model: "gpt-3.5-turbo",
+      model,
     });
 
     const resp = await chatCompletion?.choices?.[0]?.message?.content;
