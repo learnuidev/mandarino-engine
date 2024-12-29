@@ -37,6 +37,7 @@ const {
   genConversation,
   getSummary,
   listComponents,
+  listHskWords
   extractImage,
 } = mandarino;
 ```
@@ -52,7 +53,8 @@ const {
 5. Generate Conversation `genConversation`
 6. Get Summary `getSummary`
 7. List Components `listComponents`
-8. Extract Image `extractImage`
+8. List HSK Words `listHskWords`
+9. Extract Image `extractImage`
 
 ## 1. Discover
 
@@ -264,7 +266,7 @@ This phrase can be used to highlight a dual effect, action, or situation, emphas
 
 ## 7. List Components
 
-`listComponents` is a synchronous function that returns a list of components. It uses `gpt-4o-mini` under da hood
+`listComponents` is a synchronous function that returns a list of components.
 
 ```js
 const components = mandarino.listComponents();
@@ -293,7 +295,17 @@ console.log(components[0]);
 
 ---
 
-## 8. Extract Image
+## 8. List Hsk Words
+
+`listHskWords` is a synchronous function that returns a list of HSK Words.
+
+```js
+const hskWords = mandarino.listHskWords();
+```
+
+---
+
+## 9. Extract Image
 
 `extractImage` accepts `imageUrl` and returns a list of extacted text (hanzi, pinyin and en) in JSON format
 

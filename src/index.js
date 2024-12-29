@@ -16,6 +16,7 @@ const {
 const { listComponents } = require("./list-components");
 const { listGrammarAnaysis } = require("./list-grammar-analysis");
 const { chineseConverter, isChinese } = require("./utils/chinese-converter");
+const { listHskWords } = require("./list-hsk-words");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek" } = props;
@@ -64,7 +65,8 @@ const mandarinoApi = (props) => {
       return extractImage({ imageUrl, openai, model });
     },
 
-    listComponents: listComponents,
+    listComponents,
+    listHskWords,
   };
 };
 
