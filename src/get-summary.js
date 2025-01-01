@@ -79,7 +79,10 @@ async function getSummary({ content, lang, openai, model }) {
 
     console.log(`Summary successfully generated for ${content}!!!`);
 
-    return resp;
+    return {
+      summary: resp,
+      model,
+    };
   } catch (err) {
     return "";
   }
