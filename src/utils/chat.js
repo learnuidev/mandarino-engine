@@ -1,6 +1,8 @@
-import { parseInput } from "./parse-input";
+// import { parseInput } from "./parse-input";
 
-export const chat = async (
+const { parseInput } = require("./parse-input");
+
+const chat = async (
   { openai, messages, model },
   { parse } = { parse: true }
 ) => {
