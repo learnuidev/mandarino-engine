@@ -4,53 +4,149 @@ const { detectLanguage } = require("./detect-language");
 const { resolveHumanLangs } = require("./langs");
 const { chat } = require("./utils/chat");
 
-const promptLong = `
+// const { currentModel } = require("./models");
+const promptSimple = `
 You are a language translation expert
-For the given content, give:
-- The summary
-- Explanation of the content
-- Possible use cases
+For the given content, give a detailed translation in english and pinyin and detailed explanation.
+Example Response
+For 等他付完钱之后我过去拍, it should return:
+**Explanation:**
+The first part of the sentence (“等他付完钱之后 - After he finishes paying”) indicates a condition that needs to be met. 
+The speaker is waiting for the other person to complete the act of paying. 
+Once that condition is fulfilled, the speaker will take an action as described in the second part (“我过去拍 - I will go over and take a photo”). 
+This could be a situation where someone is waiting for an opportune moment to take a photo after a certain event (in this case, the person finishing paying) has occurred.
 `;
-
+// eslint-disable-next-line no-unused-vars
+const prompt_old = `
+You are an expert summarizer, given context, return its information in english.
+---
+For example for 一, it should return:
+"One" is the cardinal number representing a single unit or the first in a series.
+It is the most basic and fundamental number in the English number system.
+## Numerical Representation
+The written form is "one"
+The numerical symbol is "1"
+## Usage
+Used to indicate a single item or person
+Can function as a noun (e.g. "I have one apple"), adjective (e.g. "I have one apple"), or pronoun (e.g. "Give me one")
+Used in ordinal numbers to indicate the first position (e.g. "first")
+## Idioms and Expressions
+"All in one" - everything combined into a single unit
+"At one" - in agreement or harmony
+"In one's own right" - by one's own merit
+"Of one mind" - sharing the same opinion
+So in summary, the number "one" is the fundamental building block of the English number system, with important numerical, grammatical, and idiomatic uses. Its simplicity belies its significance in the language.`;
 const prompt = `
 You are an expert summarizer, given context, return its information in english.
-
 ---
-The Chinese character "长" (cháng) has several translations in English, depending on the context:
-## 1. Long (长, cháng)
+For example for 长, it should return:
+The Chinese character "长" has several translations in English, depending on the context:
+## 1. Long
 The most common translation of "长" is "long" when referring to length or duration. For example:
-这条河很长。 (Zhè tiáo hé hěn cháng.) - This river is very long.
-这次旅行持续了很长时间。 (Zhè cì lǚxíng chíxùle hěn cháng shíjiān.) - This trip lasted a very long time.
-## 2. Tall (长, cháng)
+这条河很长。 - This river is very long.
+这次旅行持续了很长时间。 - This trip lasted a very long time.
+## 2. Tall
 "长" can also mean "tall" when describing the height of a person or object. For example:
-他很长。 (Tā hěn cháng.) - He is very tall.
-这栋大楼很长。 (Zhè dòng dàlóu hěn cháng.) - This building is very tall.
-## 3. Chief, Head (长, zhǎng)
+他很长。 - He is very tall.
+这栋大楼很长。 - This building is very tall.
+## 3. Chief, Head
 In certain contexts, "长" can mean "chief" or "head" when referring to a leader or person in charge. For example:
-公司的长官 (Gōngsī de zhǎngguān) - The company's chief/head
-村长 (Cūnzhǎng) - The village head
-## 4. Grow (长, zhǎng)
+公司的长官 - The company's chief/head
+村长 - The village head
+## 4. Grow
 When used as a verb, "长" can mean "to grow" or "to increase in size/length/height". For example:
-这棵树长得很快。 (Zhè kē shù zhǎng dé hěn kuài.) - This tree is growing very quickly.
-他从小就一直在长高。 (Tā cóng xiǎo jiù yīzhí zài zhǎng gāo.) - He has been growing taller since he was young.
-
-So in summary, the English translations of the Chinese character "长" can include "long", "tall", "chief/head", and "grow", depending on the specific context in which it is used.
+这棵树长得很快。 - This tree is growing very quickly.
+他从小就一直在长高。 - He has been growing taller since he was young.
+So in summary, the English translations of the Chinese character "长" can include "long", "tall", "chief/head", and "grow", depending on the specific context in which it is used.`;
+// const prompts = {
+//   ml: "",
+// };
+const promptLatin = `
+You are an expert language teacher, given context, return its information in english.
+---
+For example for perjudican, it should return:
+## Definition
+The word "perjudican" is the third person plural form of the present indicative tense of the verb "perjudicar." This verb is used to describe the action of causing harm, damage, or disadvantage to someone or something.
+Usage in Context
+In a sentence, "perjudican" can refer to actions that negatively affect people, groups, or situations. For example:
+"Hasty decisions often perjudican the community."
+In this case, it indicates that decisions made without careful consideration can have negative consequences for the community.
+## Synonyms
+Some synonyms for "perjudican" include:
+- Harm
+- Hurt
+- Negatively affect
+## Antonyms
+Antonyms include:
+Benefit
+Help
+Improve
+## Additional Examples
+**Poor labor practices perjudican team morale.**
+Poor labor practices harm team morale.
+**Pollution perjudica the environment.**
+Pollution harms the environment.
+## Conclusion
+Understanding the meaning and usage of "perjudican" is essential for expressing oneself correctly in Spanish and for understanding how certain actions can have adverse effects in various contexts.
 `;
-
+const vsPrompt = `
+You are an expert language teacher, given context, return its information in english.
+---
+For example for 煎 vs 炸, it should return:
+For example:
+Both 煎 (jiān) and 炸 (zhà) are generally translated as "fry," but they refer to different cooking methods:
+## 煎 (jiān)
+煎 typically means to pan-fry or shallow-fry. This method involves:
+- Using a small amount of oil in a pan
+- Cooking food on medium to high heat
+- Often flipping the food to cook both sides
+Common English terms for 煎 include:
+- Pan-fry
+- Sauté
+- Shallow-fry
+Examples of 煎 in cooking:
+- Frying eggs (煎蛋)
+- Cooking pancakes (煎饼)
+- Sautéing vegetables
+## 炸 (zhà)
+炸 refers to deep-frying. This method involves:
+- Submerging food completely in hot oil
+- Cooking at a higher temperature than pan-frying
+- Often resulting in a crispy exterior
+Common English terms for 炸 include:
+- Deep-fry
+- Deep-fat fry
+Examples of 炸 in cooking:
+- Frying chicken (炸鸡)
+- Making french fries (炸薯条)
+- Preparing tempura
+## Key Differences
+- Oil quantity: 煎 uses less oil, while 炸 requires enough oil to submerge the food14.
+- Temperature: 炸 typically involves higher cooking temperatures than 煎3.
+- Texture: 炸 often results in a crispier texture due to the complete oil immersion5.
+- Health considerations: 煎 is generally considered healthier than 炸 due to less oil absorption1.
+In some contexts, 煎炸 (jiānzhá) is used as a combined term to refer to various frying methods, which can be translated as "frying" or "fried foods" in English48.
+`;
 // const prompts = {
 //   ml: "",
 // };
 
-const resolvePrompt = async ({ content, lang }) => {
-  if (lang === "zh") {
-    if (content?.length > 3) {
-      console.log("LONG PROMPT");
-      return promptLong;
+const resolvePrompt = async ({ content, language }) => {
+  if (language === "zh") {
+    // check if it is vs: i.e 煎 vs 炸
+    const isVs = content.toLowerCase().split("vs")?.length === 2;
+    if (isVs) {
+      return vsPrompt;
     }
-    return prompt;
+    return content?.length > 3 ? promptSimple : prompt;
+    // return promptSimple;
+  }
+  if (["es", "fr"]?.includes(language)) {
+    return promptLatin;
   }
   return prompt;
 };
+
 async function getSummary({ content, lang, openai, model }) {
   const resolvedLang =
     lang || (await detectLanguage({ content, openai, model }));
