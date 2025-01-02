@@ -78,3 +78,14 @@ module.exports = {
   starBucksMenu,
   starBucksMenuWithCoordinates,
 };
+
+const mandarino = mandarinoApi({
+  apiKey: "sk-6c10faa05ba043c1ae0077a65427269a",
+  variant: "deepseek",
+});
+
+mandarino
+  .getSummary({ content: "它的训练成本比其他模型要低得多", lang: "zh" })
+  .then((resp) => {
+    console.log("RESP", resp);
+  });

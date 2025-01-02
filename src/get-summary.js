@@ -150,10 +150,16 @@ const resolvePrompt = async ({ content, language }) => {
 async function getSummary({ content, lang, openai, model }) {
   const resolvedLang =
     lang || (await detectLanguage({ content, openai, model }));
+
   try {
     console.log(`Generating Summary for: ${content}`);
 
-    const resolvedPrompt = await resolvePrompt({ content, lang: resolvedLang });
+    const resolvedPrompt = await resolvePrompt({
+      content,
+      language: resolvedLang,
+    });
+
+    console.log("PROMPT", resolvedPrompt);
     const resp = await chat(
       {
         openai,
