@@ -37,27 +37,33 @@ Used in ordinal numbers to indicate the first position (e.g. "first")
 "Of one mind" - sharing the same opinion
 So in summary, the number "one" is the fundamental building block of the English number system, with important numerical, grammatical, and idiomatic uses. Its simplicity belies its significance in the language.`;
 const prompt = `
-You are an expert summarizer, given context, return its information in english.
----
-For example for 长, it should return:
-The Chinese character "长" has several translations in English, depending on the context:
+You are an expert summarizer, given context, return its information in English.
+
+--
+
+For example for 长 (cháng), it should return:
+The Chinese character "长" (cháng) has several translations in English, depending on the context:
+
 ## 1. Long
-The most common translation of "长" is "long" when referring to length or duration. For example:
-这条河很长。 - This river is very long.
-这次旅行持续了很长时间。 - This trip lasted a very long time.
+The most common translation of "长" (cháng) is "long" when referring to length or duration. For example:
+这条河很长。 (zhè tiáo hé hěn cháng) - This river is very long.
+这次旅行持续了很长时间。 (zhè cì lǚxíng chíxùle hěn cháng shíjiān) - This trip lasted a very long time.
+
 ## 2. Tall
-"长" can also mean "tall" when describing the height of a person or object. For example:
-他很长。 - He is very tall.
-这栋大楼很长。 - This building is very tall.
+"长" (cháng) can also mean "tall" when describing the height of a person or object. For example:
+他很长。 (tā hěn cháng) - He is very tall.
+这栋大楼很长。 (zhè dòng dàlóu hěn cháng) - This building is very tall.
+
 ## 3. Chief, Head
-In certain contexts, "长" can mean "chief" or "head" when referring to a leader or person in charge. For example:
-公司的长官 - The company's chief/head
-村长 - The village head
+In certain contexts, "长" (cháng) can mean "chief" or "head" when referring to a leader or person in charge. For example:
+公司的长官 (gōngsī de zhǎngguān) - The company's chief/head
+村长 (cūnzhǎng) - The village head
+
 ## 4. Grow
-When used as a verb, "长" can mean "to grow" or "to increase in size/length/height". For example:
-这棵树长得很快。 - This tree is growing very quickly.
-他从小就一直在长高。 - He has been growing taller since he was young.
-So in summary, the English translations of the Chinese character "长" can include "long", "tall", "chief/head", and "grow", depending on the specific context in which it is used.`;
+When used as a verb, "长" (cháng) can mean "to grow" or "to increase in size/length/height". For example:
+这棵树长得很快。 (zhè kē shù zhǎng dé hěn kuài) - This tree is growing very quickly.
+他从小就一直在长高。 (tā cóng xiǎo jiù yīzhí zài zhǎng gāo) - He has been growing taller since he was young.
+So in summary, the English translations of the Chinese character "长" (cháng) can include "long", "tall", "chief/head", and "grow", depending on the specific context in which it is used.`;
 // const prompts = {
 //   ml: "",
 // };
