@@ -137,7 +137,110 @@ In some contexts, 煎炸 (jiānzhá) is used as a combined term to refer to vari
 //   ml: "",
 // };
 
+function isChinesePunctuationMark(content) {
+  // List of common Chinese punctuation marks
+  const chinesePunctuationMarks = [
+    "，",
+    "。",
+    "、",
+    "；",
+    "：",
+    "？",
+    "！",
+    "“",
+    "”",
+    "‘",
+    "’",
+    "（",
+    "）",
+    "《",
+    "》",
+    "【",
+    "】",
+    "『",
+    "』",
+    "〔",
+    "〕",
+    "—",
+    "…",
+    "～",
+    "‧",
+  ];
+
+  // Check if the content is in the list of Chinese punctuation marks
+  return chinesePunctuationMarks.includes(content);
+}
+
+const chinesePunctuationPrompt = `
+Given a Chinese punctuation, please give intro, history and use case of the chinese punctuation:
+
+
+For example for ，it should return:
+
+Introduction to the Chinese Comma: ，
+The Chinese comma, known as 逗号 (dòu hào), is a punctuation mark used in written Chinese to indicate a brief pause within a sentence. It is similar in function to the comma in English but has some unique rules and applications specific to Chinese grammar and sentence structure. The Chinese comma is represented by the symbol ，, which is distinct from the English comma (,).
+
+History of the Chinese Comma
+The use of punctuation in Chinese writing is relatively modern compared to its long literary history. Traditional Chinese texts were written without punctuation, and readers were expected to interpret pauses and sentence breaks based on context and classical grammar rules. This practice, known as 句读 (jù dòu), required a deep understanding of the language.
+
+During the late 19th and early 20th centuries, as part of the New Culture Movement and efforts to modernize the Chinese language, Western-style punctuation was introduced. Scholars like Hu Shi and Chen Duxiu advocated for the adoption of punctuation marks to make written Chinese more accessible and easier to read. The comma, along with other punctuation marks, was formally standardized in the 20th century as part of the modernization of written Chinese.
+
+Use Cases of the Chinese Comma
+The Chinese comma is used in a variety of contexts to clarify meaning, separate clauses, and improve readability. Here are some common use cases:
+
+Separating Items in a List:
+
+Example: 我喜欢吃苹果，香蕉，和橘子。
+(I like to eat apples, bananas, and oranges.)
+
+Pausing Between Clauses:
+
+The comma is often used to separate clauses within a sentence, especially in complex or compound sentences.
+
+Example: 如果下雨，我们就不去公园了。
+(If it rains, we won’t go to the park.)
+
+Marking a Natural Pause:
+
+The comma is used to indicate a pause in speech or to break up long sentences for better flow.
+
+Example: 他来了，我们开始吧。
+(He’s here, let’s start.)
+
+Separating Subjects or Phrases:
+
+When a sentence has multiple subjects or phrases, the comma is used to distinguish them.
+
+Example: 昨天，我和朋友去了电影院。
+(Yesterday, I went to the cinema with my friend.)
+
+Before Conjunctions:
+
+In Chinese, a comma is often used before conjunctions like 但是 (but), 因为 (because), or 所以 (so) to separate clauses.
+
+Example: 我想去，但是没时间。
+(I want to go, but I don’t have time.)
+
+In Direct Address:
+
+When addressing someone directly, a comma is used to separate the name or title from the rest of the sentence.
+
+Example: 小明，你过来一下。
+(Xiao Ming, come here for a moment.)
+
+Differences Between the Chinese and English Comma
+Shape: The Chinese comma (，) is a small dot with a tail that curves downward, while the English comma (,) is a simple curved line.
+
+Usage: In Chinese, the comma is often used more liberally to indicate pauses, even where an English sentence might not require one. For example, Chinese frequently uses commas before conjunctions like 和 (and), whereas English typically does not.
+
+Conclusion
+The Chinese comma is an essential punctuation mark that plays a crucial role in clarifying meaning and improving readability in written Chinese. Its introduction during the modernization of the Chinese language reflects the broader cultural and linguistic shifts of the 20th century. Today, it is widely used in both formal and informal writing, adhering to specific rules that distinguish it from its English counterpart.
+`;
+
 const resolvePrompt = async ({ content, language }) => {
+  if (isChinesePunctuationMark(content)) {
+    return chinesePunctuationPrompt;
+  }
   if (language === "zh") {
     // check if it is vs: i.e 煎 vs 炸
     const isVs = content.toLowerCase().split("vs")?.length === 2;
