@@ -180,7 +180,9 @@ async function _genSentences({ content, lang, openai, model }) {
 async function genSentencesV2({ content, lang, openai, model }) {
   console.log("genSentences/detecting language...");
 
-  const resolvedLang = lang || (await detectLanguage(content?.slice(0, 16)));
+  const resolvedLang =
+    lang ||
+    (await detectLanguage({ content: content?.slice(0, 16), openai, model }));
 
   console.log("genSentences/lang", lang);
   try {
