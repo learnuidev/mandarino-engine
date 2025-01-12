@@ -80,16 +80,21 @@ module.exports = {
   starBucksMenuWithCoordinates,
 };
 
-const mandarino = mandarinoApi({
-  apiKey: ``,
-  variant: "deepseek",
-});
+// const mandarino = mandarinoApi({
+//   apiKey: ``,
+//   variant: "deepseek",
+// });
 
-mandarino
-  .genSentences({ content: "想要更上一层楼的话 那你得努力挣扎", lang: "zh" })
-  .then((resp) => {
-    console.log("RESP", resp);
-  });
+// mandarino
+//   .genSentences({ content: "想要更上一层楼的话 那你得努力挣扎" })
+//   .then((resp) => {
+//     console.log("RESP", resp);
+//   });
+// mandarino
+//   .detectLanguage({ content: "想要更上一层楼的话 那你得努力挣扎" })
+//   .then((resp) => {
+//     console.log("RESP", resp);
+//   });
 
 const exampleResp = [
   {

@@ -2,19 +2,6 @@ const { resolveHumanLangs } = require("./langs");
 const { detectLanguage } = require("./detect-language");
 const { parseInput } = require("./utils/parse-input");
 
-const isPattern = (sent) => {
-  // const exampleSent = '如果…那么…'
-  return sent?.includes("…") || sent?.includes("...") || sent?.includes("…");
-};
-
-const isVs = (content) => {
-  return content?.toLowerCase().split("vs")?.length === 2;
-};
-
-const isPlus = (content) => {
-  return content?.toLowerCase()?.includes("+");
-};
-
 const promptLatin = `
 You are a language expert, given the content, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
 
@@ -170,7 +157,6 @@ async function _genSentences({ content, lang, openai, model }) {
     return {
       ...sentence,
       lang,
-      [lang]: sentence?.input,
       component: content,
       model: model,
     };
@@ -180,9 +166,11 @@ async function _genSentences({ content, lang, openai, model }) {
 async function genSentencesV2({ content, lang, openai, model }) {
   console.log("genSentences/detecting language...");
 
-  const resolvedLang =
-    lang ||
-    (await detectLanguage({ content: content?.slice(0, 16), openai, model }));
+  console.log("MODEL", model);
+
+  const resolvedLang = lang
+    ? lang
+    : await detectLanguage({ content: content?.slice(0, 16), openai, model });
 
   console.log("genSentences/lang", lang);
   try {
@@ -197,21 +185,7 @@ async function genSentencesV2({ content, lang, openai, model }) {
 
     console.log(`Call to genSentences took ${t1 - t0} milliseconds.`);
 
-    const _isVs = isVs(content);
-    const _isPlus = isPlus(content);
-    const _isPattern = isPattern(content);
-
-    // Avoiding Hallucination attempt #1
     return sents;
-
-    // if (_isPattern || _isVs || _isPlus || content?.length > 4) {
-    //   return sents;
-    // }
-    // return sents?.filter((sent) =>
-    //   (sent?.hanzi || sent?.input)
-    //     ?.toLowerCase()
-    //     ?.includes(content?.toLowerCase())
-    // );
   } catch (err) {
     return [];
   }
