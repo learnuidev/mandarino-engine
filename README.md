@@ -55,8 +55,7 @@ const {
 7. List Components `listComponents`
 8. List HSK Words `listHskWords`
 9. Extract Image `extractImage`
-10. Generate Synonym Sentences `generateSynoymSentences` [NEW]
-11. List Synoynms `listSynonms` [NEW]
+10. List Synoynms `listSynonms` [NEW]
 
 ## 1. Discover
 
@@ -616,6 +615,53 @@ console.log(components);
       width: 180,
       height: 30,
     },
+  },
+];
+```
+
+## 10. List Synonyms
+
+`listSynonyms` accepts `content` and lang and returns a list of synonyms (input, roman and en) in JSON format
+
+```js
+mandarinoClient
+  .listSynonyms({
+    content: "除了",
+    lang: "zh",
+  })
+  .then((sentences) => {
+    console.log("synonyms", JSON.stringify(sentences, null, 4));
+  });
+const resp1 = [
+  {
+    input: "除了",
+    roman: "chú le",
+    en: "except for, besides, apart from, other than, excluding",
+    lang: "zh",
+  },
+  {
+    input: "除开",
+    roman: "chú kāi",
+    en: "excluding, apart from, other than, besides, except for",
+    lang: "zh",
+  },
+  {
+    input: "除去",
+    roman: "chú qù",
+    en: "excluding, apart from, other than, besides, except for",
+    lang: "zh",
+  },
+  {
+    input: "除却",
+    roman: "chú què",
+    en: "excluding, apart from, other than, besides, except for",
+    lang: "zh",
+  },
+  {
+    input: "除...以外",
+    roman: "chú...yǐ wài",
+    en: "except for, besides, apart from, other than, excluding",
+    lang: "zh",
   },
 ];
 ```

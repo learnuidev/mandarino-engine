@@ -17,7 +17,6 @@ const { listGrammarAnaysis } = require("./list-grammar-analysis");
 const { chineseConverter, isChinese } = require("./utils/chinese-converter");
 const { listHskWords } = require("./list-hsk-words");
 const { genSentences } = require("./gen-sentences");
-const { generateSynonymSentences } = require("./gen-synonym-sentences");
 const { listSynonyms } = require("./list-synonyms");
 
 const mandarinoApi = (props) => {
@@ -67,9 +66,6 @@ const mandarinoApi = (props) => {
       return extractImage({ imageUrl, openai, model });
     },
 
-    generateSynonymSentences: async ({ content, lang }) => {
-      return generateSynonymSentences({ content, lang, openai, model });
-    },
     listSynonyms: async ({ content, lang }) => {
       return listSynonyms({ content, lang, openai, model });
     },

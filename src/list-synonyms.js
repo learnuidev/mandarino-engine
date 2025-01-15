@@ -11,7 +11,7 @@ the input for each sentences should be different than the content while preservi
 
 Please provide in stringified JSON format like so:
 [
-  {"input": "", "roman": "...", "en": "...", "..."}]
+  {"input": "", "roman": "...", "en": "..."}]
     
     `,
     content,
