@@ -9,6 +9,10 @@ const humanLangs = {
   fr: "French",
   es: "Spanish",
   mo: "Romanian (Moldova)",
+  ["fr-FR"]: "French",
+  ["es-ES"]: "Spanish",
+  ["it-IT"]: "Italian",
+  ["zh-CN"]: "Mandarin Chinese (Simple)",
 };
 
 const resolveHumanLangs = (lang) => humanLangs[lang] || lang;

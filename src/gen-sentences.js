@@ -3,7 +3,9 @@ const { detectLanguage } = require("./detect-language");
 const { parseInput } = require("./utils/parse-input");
 
 const promptLatin = `
-You are a language expert, given the content, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
+You are a {{language}} language expert, given the {{language}} content and the language, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
+
+Please return a stringified JSON response. 
 
 For example if the language latin like spanish, italian or portugese based:
 como estas should return:
@@ -86,6 +88,7 @@ const prompts = {
   es: promptLatin,
   it: promptLatin,
   fr: promptLatin,
+  ["fr-FR"]: promptLatin,
   pt: promptLatin,
   ml: promptMalay,
   ja: promptNonRoman,
@@ -125,17 +128,19 @@ Please provide in stringified JSON format like so:
 `;
 
 async function _genSentences({ content, lang, openai, model }) {
-  console.log(`Generating sentences for: ${content}`);
-
-  console.log("lang: ", lang);
-
   const isVs = content?.toLowerCase().split("vs")?.length === 2;
 
   const resolvedPrompt = isVs ? vsPrompt : prompts[lang] || promptNonRoman;
 
+  const humanLang = resolveHumanLangs(lang);
+
   const finalPrompt = `${resolvedPrompt}
+  
         
-  Also the content is of the following ISO language: ${resolveHumanLangs(lang)}`;
+  Also the content: '${content}' is in the language: ${humanLang}. Please keep that in mind`?.replaceAll(
+    `{{language}}`,
+    humanLang
+  );
 
   const chatCompletion = await openai.chat.completions.create({
     messages: [
@@ -151,7 +156,8 @@ async function _genSentences({ content, lang, openai, model }) {
     model: model,
   });
 
-  const resp = await parseInput(chatCompletion?.choices?.[0]?.message?.content);
+  const respContent = chatCompletion?.choices?.[0]?.message?.content;
+  const resp = await parseInput(respContent);
 
   return resp?.map((sentence) => {
     return {
@@ -164,15 +170,10 @@ async function _genSentences({ content, lang, openai, model }) {
 }
 
 async function genSentences({ content, lang, openai, model }) {
-  console.log("genSentences/detecting language...");
-
-  console.log("MODEL", model);
-
   const resolvedLang = lang
     ? lang
     : await detectLanguage({ content: content?.slice(0, 16), openai, model });
 
-  console.log("genSentences/lang", lang);
   try {
     const t0 = performance.now();
     const sents = await _genSentences({
@@ -187,6 +188,7 @@ async function genSentences({ content, lang, openai, model }) {
 
     return sents;
   } catch (err) {
+    console.log("ERROR", err);
     return [];
   }
 }

@@ -1,10 +1,10 @@
 const { mandarinoClient } = require("./test.client");
 
-mandarinoClient
-  .genSentences({ content: "想要更上一层楼的话 那你得努力挣扎" })
-  .then((resp) => {
-    console.log("RESP", resp);
-  });
+// mandarinoClient
+//   .genSentences({ content: "想要更上一层楼的话 那你得努力挣扎" })
+//   .then((resp) => {
+//     console.log("RESP", resp);
+//   });
 
 const exampleResp = [
   {
@@ -63,6 +63,64 @@ const exampleResp = [
     lang: "zh",
     zh: undefined,
     component: "想要更上一层楼的话 那你得努力挣扎",
+    model: "deepseek-chat",
+  },
+];
+
+mandarinoClient
+  .genSentences({
+    // content: "dont la troisième Chinoise dans l'espace",
+    content: "dont",
+    lang: "fr-FR",
+  })
+  .then((resp) => {
+    console.log("RESP", resp);
+  });
+
+const resp = [
+  {
+    input: "Je ne sais pas dont tu parles.",
+    en: "I don't know what you're talking about.",
+    explanation:
+      "In this sentence, 'dont' is a relative pronoun meaning 'of which' or 'about which' in English.",
+    lang: "fr-FR",
+    component: "dont",
+    model: "deepseek-chat",
+  },
+  {
+    input: "C'est la personne dont j'ai besoin.",
+    en: "This is the person I need.",
+    explanation:
+      "Here, 'dont' is used to mean 'whom' or 'that' in English, referring to the person needed.",
+    lang: "fr-FR",
+    component: "dont",
+    model: "deepseek-chat",
+  },
+  {
+    input: "Voici le livre dont je t'ai parlé.",
+    en: "Here is the book I told you about.",
+    explanation:
+      "In this sentence, 'dont' is used to mean 'about which' or 'that' in English, referring to the book.",
+    lang: "fr-FR",
+    component: "dont",
+    model: "deepseek-chat",
+  },
+  {
+    input: "C'est l'idée dont je suis fier.",
+    en: "This is the idea I am proud of.",
+    explanation:
+      "Here, 'dont' is used to mean 'of which' in English, referring to the idea.",
+    lang: "fr-FR",
+    component: "dont",
+    model: "deepseek-chat",
+  },
+  {
+    input: "Il y a des choses dont on ne parle pas.",
+    en: "There are things we don't talk about.",
+    explanation:
+      "In this sentence, 'dont' is used to mean 'about which' in English, referring to the things not discussed.",
+    lang: "fr-FR",
+    component: "dont",
     model: "deepseek-chat",
   },
 ];
