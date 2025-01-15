@@ -1,11 +1,6 @@
-const { mandarinoApi } = require("../src");
+const { mandarinoClient } = require("./client");
 
-const mandarino = mandarinoApi({
-  apiKey: ``,
-  variant: "deepseek",
-});
-
-mandarino
+mandarinoClient
   .listGrammarAnaysis({ content: "diminetile-s la fel", lang: "ro" })
   .then((resp) => {
     console.log("RESP", resp);
