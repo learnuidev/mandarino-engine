@@ -18,6 +18,7 @@ const { chineseConverter, isChinese } = require("./utils/chinese-converter");
 const { listHskWords } = require("./list-hsk-words");
 const { genSentences } = require("./gen-sentences");
 const { generateSynonymSentences } = require("./gen-synonym-sentences");
+const { listSynonyms } = require("./list-synonyms");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek" } = props;
@@ -59,15 +60,18 @@ const mandarinoApi = (props) => {
       return getSummary({ content, lang, openai, model });
     },
 
-    generateSynonymSentences: async ({ content, lang }) => {
-      return generateSynonymSentences({ content, lang, openai, model });
-    },
-
     extractImage: async ({ imageUrl }) => {
       if (variant === "deepseek") {
         throw new Error("Operation not supported");
       }
       return extractImage({ imageUrl, openai, model });
+    },
+
+    generateSynonymSentences: async ({ content, lang }) => {
+      return generateSynonymSentences({ content, lang, openai, model });
+    },
+    listSynonyms: async ({ content, lang }) => {
+      return listSynonyms({ content, lang, openai, model });
     },
 
     listComponents,
