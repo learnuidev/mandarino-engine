@@ -250,10 +250,11 @@ const resolvePrompt = async ({ content, language }) => {
     return content?.length > 3 ? promptSimple : prompt;
     // return promptSimple;
   }
-  if (["es", "fr"]?.includes(language)) {
-    return promptLatin;
-  }
-  return prompt;
+  return promptSimple;
+  // if (["es", "fr", "es-ES", "it-IT", "ro-RO", "fr-FR"]?.includes(language)) {
+  //   return promptLatin;
+  // }
+  // return prompt;
 };
 
 async function getSummary({ content, lang, openai, model }) {
