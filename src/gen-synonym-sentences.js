@@ -1,6 +1,6 @@
 const { chatV2 } = require("./utils/chat-v2");
 
-async function generateSynonymSentences({ content, openai, model }) {
+async function generateSynonymSentences({ content, openai, model, lang }) {
   const resp = await chatV2({
     openai,
     model,
@@ -17,7 +17,12 @@ Please provide in stringified JSON format like so:
     content,
   });
 
-  return resp;
+  return resp.map((item) => {
+    return {
+      ...item,
+      lang,
+    };
+  });
 }
 
 module.exports = {

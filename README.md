@@ -55,6 +55,8 @@ const {
 7. List Components `listComponents`
 8. List HSK Words `listHskWords`
 9. Extract Image `extractImage`
+10. Generate Synonym Sentences `generateSynoymSentences` [NEW]
+11. List Synoynms `listSynonms` [NEW]
 
 ## 1. Discover
 
