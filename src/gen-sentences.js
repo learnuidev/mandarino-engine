@@ -45,14 +45,14 @@ For example:
 们 should return:
 
 [
-  {"userLanguage": "我们是朋友。", "pinyin": "Wǒmen shì péngyou.", "en": "We are friends.", "explanation": "In this sentence, 我们 means 'we' and 朋友 means 'friends'. Combined, 我们是朋友 means 'we are friends'."},
-  {"hanzi": "他们正在吃饭。", "pinyin": "Tāmen zhèngzài chīfàn.", "en": "They are eating a meal.", "explanation": "Here, 他们 means 'they' and 吃饭 means 'eating'. Combined, 他们正在吃饭 means 'They are eating a meal'."},
+  {"lang": "zh", "hanzi": "我们是朋友。", "pinyin": "Wǒmen shì péngyou.", "en": "We are friends.", "explanation": "In this sentence, 我们 means 'we' and 朋友 means 'friends'. Combined, 我们是朋友 means 'we are friends'."},
+  {"lang": "zh", "hanzi": "他们正在吃饭。", "pinyin": "Tāmen zhèngzài chīfàn.", "en": "They are eating a meal.", "explanation": "Here, 他们 means 'they' and 吃饭 means 'eating'. Combined, 他们正在吃饭 means 'They are eating a meal'."},
 
-  {"hanzi": "你们很棒！", "pinyin": "Nǐmen hěn bàng!", "en": "You guys are great!", "explanation": "In this sentence, 你们 means 'you (plural)' and 很棒 means 'great'. Combined, 你们很棒 means 'You guys are great'."},
+  {"lang": "zh", "hanzi": "你们很棒！", "pinyin": "Nǐmen hěn bàng!", "en": "You guys are great!", "explanation": "In this sentence, 你们 means 'you (plural)' and 很棒 means 'great'. Combined, 你们很棒 means 'You guys are great'."},
   
-  {"hanzi": "她们喜欢阅读。", "pinyin": "Tāmen xǐhuān yuèdú.", "en": "They (females) like to read.", "explanation": "Here, 她们 means 'they (for females)' and 喜欢阅读 means 'like to read'. Combined, 她们喜欢阅读 means 'They (females) like to read'."},
+  {"lang": "zh", "hanzi": "她们喜欢阅读。", "pinyin": "Tāmen xǐhuān yuèdú.", "en": "They (females) like to read.", "explanation": "Here, 她们 means 'they (for females)' and 喜欢阅读 means 'like to read'. Combined, 她们喜欢阅读 means 'They (females) like to read'."},
   
-  {"hanzi": "你们去哪里?", "pinyin": "Nǐmen qù nǎlǐ?", "en": "Where are you guys going?", "explanation": "In this sentence, 你们 means 'you (plural)' and 去哪里 means 'going where'. Combined, 你们去哪里 means 'where are you guys going'."}
+  {"lang": "zh", "hanzi": "你们去哪里?", "pinyin": "Nǐmen qù nǎlǐ?", "en": "Where are you guys going?", "explanation": "In this sentence, 你们 means 'you (plural)' and 去哪里 means 'going where'. Combined, 你们去哪里 means 'where are you guys going'."}
 ]
   
   `;
@@ -101,18 +101,41 @@ const prompts = {
   nepali: promptNonRoman,
 };
 
+const vsPrompt = `
+
+You are a language expert, given the content, please generate 6 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
+
+For example if the language latin like spanish, italian or portugese based:
+For example: 煎 vs 炸, should
+
+Generate 3 sentences for 煎 and 3 sentences for 炸
+
+Please provide in stringified JSON format like so:
+[
+  {"hanzi": "我们是朋友。", "pinyin": "Wǒmen shì péngyou.", "en": "We are friends.", "explanation": "In this sentence, 我们 means 'we' and 朋友 means 'friends'. Combined, 我们是朋友 means 'we are friends'."},
+  {"hanzi": "他们正在吃饭。", "pinyin": "Tāmen zhèngzài chīfàn.", "en": "They are eating a meal.", "explanation": "Here, 他们 means 'they' and 吃饭 means 'eating'. Combined, 他们正在吃饭 means 'They are eating a meal'."},
+
+  {"hanzi": "你们很棒！", "pinyin": "Nǐmen hěn bàng!", "en": "You guys are great!", "explanation": "In this sentence, 你们 means 'you (plural)' and 很棒 means 'great'. Combined, 你们很棒 means 'You guys are great'."},
+  
+  {"hanzi": "她们喜欢阅读。", "pinyin": "Tāmen xǐhuān yuèdú.", "en": "They (females) like to read.", "explanation": "Here, 她们 means 'they (for females)' and 喜欢阅读 means 'like to read'. Combined, 她们喜欢阅读 means 'They (females) like to read'."},
+  
+  {"hanzi": "你们去哪里?", "pinyin": "Nǐmen qù nǎlǐ?", "en": "Where are you guys going?", "explanation": "In this sentence, 你们 means 'you (plural)' and 去哪里 means 'going where'. Combined, 你们去哪里 means 'where are you guys going'."}
+]
+
+`;
+
 async function _genSentences({ content, lang, openai, model }) {
   console.log(`Generating sentences for: ${content}`);
 
   console.log("lang: ", lang);
 
-  const resolvedPrompt = prompts[lang] || promptNonRoman;
+  const isVs = content?.toLowerCase().split("vs")?.length === 2;
+
+  const resolvedPrompt = isVs ? vsPrompt : prompts[lang] || promptNonRoman;
 
   const finalPrompt = `${resolvedPrompt}
         
   Also the content is of the following ISO language: ${resolveHumanLangs(lang)}`;
-
-  console.log("FINAL PROMPT", finalPrompt);
 
   const chatCompletion = await openai.chat.completions.create({
     messages: [
@@ -130,15 +153,12 @@ async function _genSentences({ content, lang, openai, model }) {
 
   const resp = await parseInput(chatCompletion?.choices?.[0]?.message?.content);
 
-  // return chatCompletion?.choices?.[0]?.message?.content;
-
-  console.log("Generated Sentences: ", resp);
-
   return resp?.map((sentence) => {
     return {
       ...sentence,
       lang,
       component: content,
+      model: model,
     };
   });
 }
@@ -146,9 +166,11 @@ async function _genSentences({ content, lang, openai, model }) {
 async function genSentences({ content, lang, openai, model }) {
   console.log("genSentences/detecting language...");
 
-  const resolvedLang =
-    lang ||
-    (await detectLanguage({ content: content?.slice(0, 16), openai, model }));
+  console.log("MODEL", model);
+
+  const resolvedLang = lang
+    ? lang
+    : await detectLanguage({ content: content?.slice(0, 16), openai, model });
 
   console.log("genSentences/lang", lang);
   try {
@@ -161,39 +183,14 @@ async function genSentences({ content, lang, openai, model }) {
     });
     const t1 = performance.now();
 
-    // console.log("SENTS", sents);
-
     console.log(`Call to genSentences took ${t1 - t0} milliseconds.`);
-
-    // Avoiding Hallucination attempt #1
 
     return sents;
   } catch (err) {
-    console.log("ERR", err);
     return [];
   }
 }
 
-module.exports.genSentences = genSentences;
-
-// genSentences({ content: "el dueño" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
-// genSentences({ content: "പ" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
-
-// genSentences({ content: "împreună" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
-
-// Hindi: 23/04/2024
-// genSentences({ content: "ख", lang: "ne" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
-// genSentences({ content: "Perché", lang: "it" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
-// genSentences({ content: "Perché", lang: "it" }).then((lang) => {
-//   console.log("LANG", lang);
-// });
+module.exports = {
+  genSentences,
+};

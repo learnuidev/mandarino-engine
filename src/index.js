@@ -2,7 +2,6 @@ const { models } = require("./data/models");
 const { detectLanguage } = require("./detect-language");
 const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
-const { genSentences } = require("./gen-sentences");
 const { getSummary } = require("./get-summary");
 const OpenAI = require("openai");
 const { extractImage } = require("./image/extract-image/extract-image");
@@ -17,7 +16,7 @@ const { listComponents } = require("./list-components");
 const { listGrammarAnaysis } = require("./list-grammar-analysis");
 const { chineseConverter, isChinese } = require("./utils/chinese-converter");
 const { listHskWords } = require("./list-hsk-words");
-const { genSentencesV2 } = require("./gen-sentences.v2");
+const { genSentences } = require("./gen-sentences");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek" } = props;
@@ -50,7 +49,7 @@ const mandarinoApi = (props) => {
     },
 
     genSentences: async ({ content, lang }) => {
-      return genSentencesV2({ lang, content, openai, model });
+      return genSentences({ lang, content, openai, model });
     },
     genConversation: async ({ topic, subtopic, lang }) => {
       return genConversation({ topic, subtopic, lang, openai, model });
