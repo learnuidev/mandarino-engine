@@ -1,4 +1,4 @@
-const { mandarinoClient } = require("./client");
+const { mandarinoClient } = require("./test.client");
 
 mandarinoClient
   .listGrammarAnaysis({ content: "diminetile-s la fel", lang: "ro" })

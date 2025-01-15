@@ -17,6 +17,7 @@ const { listGrammarAnaysis } = require("./list-grammar-analysis");
 const { chineseConverter, isChinese } = require("./utils/chinese-converter");
 const { listHskWords } = require("./list-hsk-words");
 const { genSentences } = require("./gen-sentences");
+const { generateSynonymSentences } = require("./gen-synonym-sentences");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek" } = props;
@@ -56,6 +57,10 @@ const mandarinoApi = (props) => {
     },
     getSummary: async ({ content, lang }) => {
       return getSummary({ content, lang, openai, model });
+    },
+
+    generateSynonymSentences: async ({ content, lang }) => {
+      return generateSynonymSentences({ content, lang, openai, model });
     },
 
     extractImage: async ({ imageUrl }) => {

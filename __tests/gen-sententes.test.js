@@ -1,4 +1,4 @@
-const { mandarinoClient } = require("./client");
+const { mandarinoClient } = require("./test.client");
 
 mandarinoClient
   .genSentences({ content: "想要更上一层楼的话 那你得努力挣扎" })
