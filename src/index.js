@@ -18,6 +18,7 @@ const { chineseConverter, isChinese } = require("./utils/chinese-converter");
 const { listHskWords } = require("./list-hsk-words");
 const { genSentences } = require("./gen-sentences");
 const { listSynonyms } = require("./list-synonyms");
+const { casualTranslate } = require("./casual-translate");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek" } = props;
@@ -68,6 +69,16 @@ const mandarinoApi = (props) => {
 
     listSynonyms: async ({ content, lang }) => {
       return listSynonyms({ content, lang, openai, model });
+    },
+
+    casualTranslate: async ({ content, targetLang, sourceLang }) => {
+      return casualTranslate({
+        content,
+        openai,
+        model,
+        targetLang,
+        sourceLang,
+      });
     },
 
     listComponents,

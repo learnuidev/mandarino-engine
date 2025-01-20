@@ -56,6 +56,7 @@ const {
 8. List HSK Words `listHskWords`
 9. Extract Image `extractImage`
 10. List Synoynms `listSynonms` [NEW]
+11. Casual Translate `casualTranslate` [NEW]
 
 ## 1. Discover
 
@@ -664,6 +665,34 @@ const resp1 = [
     lang: "zh",
   },
 ];
+```
+
+---
+
+## 11. Casual Translate `[NEW]`
+
+```js
+mandarinoClient
+  .casualTranslate({
+    content: "How do you learn French",
+    sourceLang: "en-US",
+    targetLang: "es-ES",
+  })
+  .then((resp) => {
+    console.log("RESP", resp);
+  });
+
+{
+  input: 'How do you learn French',
+  roman: '¿Cómo aprendes francés?',
+  en: 'How do you learn French?',
+  sourceLang: 'en-US',
+  targetLang: 'es-ES'
+}
+```
+
+```
+
 ```
 
 ---
