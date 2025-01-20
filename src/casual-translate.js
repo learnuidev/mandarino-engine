@@ -15,14 +15,15 @@ You are a language expert, given the content please provide casual spoken transl
 
 
 Please provide in stringified JSON format like so:
-{"input": "", "roman": "...", "en": "..."}
+{"input": "", "roman": "...", "output": "..."}
 
 For example for: when i was a kid, i loved drawing, reading and singing
 
 if should return
 {"input": "when i was a kid, i loved drawing, reading and singing",
-"hanzi": "小时候，我特喜欢画画、看书和唱歌。",
-"roman": "xiǎoshíhou, wǒ tè xǐhuan huàhuà, kànshū hé chànggē."}`,
+"output": "小时候，我特喜欢画画、看书和唱歌。",
+"roman": "xiǎoshíhou, wǒ tè xǐhuan huàhuà, kànshū hé chànggē."}
+`,
     content,
   });
 
