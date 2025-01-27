@@ -1,4 +1,4 @@
-const { models } = require("./data/models");
+const { models, moonShotModels, deepseekModels } = require("./data/models");
 const { detectLanguage } = require("./detect-language");
 const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
@@ -20,11 +20,52 @@ const { genSentences } = require("./gen-sentences");
 const { listSynonyms } = require("./list-synonyms");
 const { casualTranslate } = require("./casual-translate");
 
+const getModelName = (variant) => {
+  switch (variant) {
+    case "openai":
+      return models.mini4o;
+    case "moonshot":
+      return models.moonshotAuto;
+    case "deepseek":
+    default:
+      return models.deepSeekChat;
+  }
+};
+
+const verifyModel = ({ variant, modelName }) => {
+  switch (variant) {
+    case "openai":
+      return modelName;
+    case "moonshot": {
+      if (!moonShotModels?.includes(modelName)) {
+        throw new Error(
+          `Wrong model, should be one of the following ${JSON.stringify(moonShotModels)}`
+        );
+      } else {
+        return modelName;
+      }
+    }
+    case "deepseek": {
+      if (!deepseekModels?.includes(modelName)) {
+        throw new Error(
+          `Wrong model, should be one of the following ${JSON.stringify(deepseekModels)}`
+        );
+      } else {
+        return modelName;
+      }
+    }
+    default:
+      return modelName;
+  }
+};
+
 const mandarinoApi = (props) => {
-  const { apiKey, variant = "deepseek" } = props;
+  const { apiKey, variant = "deepseek", modelName } = props;
 
   let openai;
-  const model = variant === "openai" ? models.mini4o : models.deepSeekChat;
+  const model = modelName
+    ? verifyModel({ variant, modelName })
+    : getModelName(variant);
 
   if (variant === "openai") {
     openai = new OpenAI({
@@ -35,6 +76,13 @@ const mandarinoApi = (props) => {
   if (variant === "deepseek") {
     openai = new OpenAI({
       baseURL: "https://api.deepseek.com",
+      apiKey: apiKey,
+    });
+  }
+
+  if (variant === "moonshot") {
+    openai = new OpenAI({
+      baseURL: "https://api.moonshot.cn/v1",
       apiKey: apiKey,
     });
   }
