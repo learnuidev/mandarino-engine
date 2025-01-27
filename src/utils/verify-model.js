@@ -15,6 +15,8 @@ const verifyModel = ({ variant, modelName }) => {
     );
   }
 
+  console.log("Yayy! Model is supported 🔥");
+
   return modelName;
 };
 
