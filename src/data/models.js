@@ -14,8 +14,13 @@ const moonShotModels = [
 
 const deepseekModels = ["deepseek-chat", "deepseek-r1"];
 
+const modelsV2 = {
+  moonshot: moonShotModels,
+  deepseek: deepseekModels,
+  openai: ["gpt-3.5-turbo", "gpt-4o-mini"],
+};
+
 module.exports = {
   models,
-  moonShotModels,
-  deepseekModels,
+  modelsV2,
 };

@@ -1,4 +1,3 @@
-const { models, moonShotModels, deepseekModels } = require("./data/models");
 const { detectLanguage } = require("./detect-language");
 const { discover } = require("./discover");
 const { genConversation } = require("./gen-conversation");
@@ -19,45 +18,8 @@ const { listHskWords } = require("./list-hsk-words");
 const { genSentences } = require("./gen-sentences");
 const { listSynonyms } = require("./list-synonyms");
 const { casualTranslate } = require("./casual-translate");
-
-const getModelName = (variant) => {
-  switch (variant) {
-    case "openai":
-      return models.mini4o;
-    case "moonshot":
-      return models.moonshotAuto;
-    case "deepseek":
-    default:
-      return models.deepSeekChat;
-  }
-};
-
-const verifyModel = ({ variant, modelName }) => {
-  switch (variant) {
-    case "openai":
-      return modelName;
-    case "moonshot": {
-      if (!moonShotModels?.includes(modelName)) {
-        throw new Error(
-          `Wrong model, should be one of the following ${JSON.stringify(moonShotModels)}`
-        );
-      } else {
-        return modelName;
-      }
-    }
-    case "deepseek": {
-      if (!deepseekModels?.includes(modelName)) {
-        throw new Error(
-          `Wrong model, should be one of the following ${JSON.stringify(deepseekModels)}`
-        );
-      } else {
-        return modelName;
-      }
-    }
-    default:
-      return modelName;
-  }
-};
+const { verifyModel } = require("./utils/verify-model");
+const { getDefaultModel } = require("./utils/get-defaullt-model");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek", modelName } = props;
@@ -65,7 +27,7 @@ const mandarinoApi = (props) => {
   let openai;
   const model = modelName
     ? verifyModel({ variant, modelName })
-    : getModelName(variant);
+    : getDefaultModel(variant);
 
   if (variant === "openai") {
     openai = new OpenAI({
@@ -109,7 +71,7 @@ const mandarinoApi = (props) => {
     },
 
     extractImage: async ({ imageUrl }) => {
-      if (variant === "deepseek") {
+      if (["deepseek", "moonshot"].includes(variant)) {
         throw new Error("Operation not supported");
       }
       return extractImage({ imageUrl, openai, model });
