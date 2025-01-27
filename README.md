@@ -62,7 +62,7 @@ const {
 7. List Components `listComponents`
 8. List HSK Words `listHskWords`
 9. Extract Image `extractImage`
-10. List Synoynms `listSynonms` [NEW]
+10. List Synoynms `listSynonyms` [NEW]
 11. Casual Translate `casualTranslate` [NEW]
 
 ## 1. Discover
