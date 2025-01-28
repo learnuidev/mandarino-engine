@@ -1,13 +1,13 @@
 const { mandarinoClient } = require("./test.client");
 
-mandarinoClient
-  .listSynonyms({
-    content: "除了",
-    lang: "zh",
-  })
-  .then((sentences) => {
-    console.log("synonyms", JSON.stringify(sentences, null, 4));
-  });
+// mandarinoClient
+//   .listSynonyms({
+//     content: "除了",
+//     lang: "zh",
+//   })
+//   .then((sentences) => {
+//     console.log("synonyms", JSON.stringify(sentences, null, 4));
+//   });
 const resp1 = [
   {
     input: "除了",
@@ -40,14 +40,14 @@ const resp1 = [
     lang: "zh",
   },
 ];
-mandarinoClient
-  .listSynonyms({
-    content: "除了我们都听过的多说多听",
-    lang: "zh",
-  })
-  .then((sentences) => {
-    console.log("synonyms", JSON.stringify(sentences, null, 4));
-  });
+// mandarinoClient
+//   .listSynonyms({
+//     content: "除了我们都听过的多说多听",
+//     lang: "zh",
+//   })
+//   .then((sentences) => {
+//     console.log("synonyms", JSON.stringify(sentences, null, 4));
+//   });
 
 const resp2 = [
   {

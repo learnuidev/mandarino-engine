@@ -19,6 +19,8 @@ const chatV2 = async (
 
   const resp = chatCompletion?.choices?.[0]?.message?.content;
 
+  console.log("RESP", resp);
+
   if (parse) {
     return parseInput(resp);
   }

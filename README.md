@@ -4,7 +4,7 @@ Mandarino API in JS
 
 ## Features
 
-- Multi Model support: can either use openai, deepseek or moonshot 🤗
+- Multi Model support: can either use openai, deepseek, qwen or moonshot 🤗
 
 ## Install
 
@@ -33,6 +33,12 @@ const mandarino = mandarinoApi({
   apiKey: "MOONSHOT_API_KEY",
   variant: "moonshot",
   modelName: "moonshot-v1-8k" || "moonshot-v1-32k" || "moonshot-v1-128k" || "moonshot-v1-auto"
+});
+
+//
+const mandarino = mandarinoApi({
+  apiKey: "QWEN_API_KEY",
+  variant: "qwen",
 });
 
 // Available Features

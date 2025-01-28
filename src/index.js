@@ -21,9 +21,16 @@ const { casualTranslate } = require("./casual-translate");
 const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
 const { genPinyin } = require("./gen-pinyin");
+const supportedPlatforms = ["deepseek", "moonshot", "moonshot", "qwen"];
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek", modelName } = props;
+
+  if (!supportedPlatforms?.includes(variant)) {
+    throw new Error(
+      `The following platoforms are supported: ${JSON.stringify(supportedPlatforms)}`
+    );
+  }
 
   let openai;
   const model = modelName
@@ -46,6 +53,12 @@ const mandarinoApi = (props) => {
   if (variant === "moonshot") {
     openai = new OpenAI({
       baseURL: "https://api.moonshot.cn/v1",
+      apiKey: apiKey,
+    });
+  }
+  if (variant === "qwen") {
+    openai = new OpenAI({
+      baseURL: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
       apiKey: apiKey,
     });
   }

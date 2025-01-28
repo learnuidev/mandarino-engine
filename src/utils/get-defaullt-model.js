@@ -1,4 +1,4 @@
-const { models } = require("../data/models");
+const { models, modelsV2 } = require("../data/models");
 
 const getDefaultModel = (variant) => {
   switch (variant) {
@@ -6,6 +6,8 @@ const getDefaultModel = (variant) => {
       return models.mini4o;
     case "moonshot":
       return models.moonshotAuto;
+    case "qwen":
+      return modelsV2?.qwen?.[0];
     case "deepseek":
     default:
       return models.deepSeekChat;

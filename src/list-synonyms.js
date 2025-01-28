@@ -1,6 +1,7 @@
 const { chatV2 } = require("./utils/chat-v2");
 
 async function listSynonyms({ content, openai, model, lang }) {
+  console.log("MODEL", { model });
   const resp = await chatV2({
     openai,
     model,
