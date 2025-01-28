@@ -20,6 +20,7 @@ const { listSynonyms } = require("./list-synonyms");
 const { casualTranslate } = require("./casual-translate");
 const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
+const { genPinyin } = require("./gen-pinyin");
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek", modelName } = props;
@@ -79,6 +80,10 @@ const mandarinoApi = (props) => {
 
     listSynonyms: async ({ content, lang }) => {
       return listSynonyms({ content, lang, openai, model });
+    },
+
+    genPinyin: async ({ content }) => {
+      return genPinyin({ content, openai, model });
     },
 
     casualTranslate: async ({ content, targetLang, sourceLang }) => {
