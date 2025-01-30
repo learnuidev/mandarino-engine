@@ -21,7 +21,7 @@ const { casualTranslate } = require("./casual-translate");
 const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
 const { genPinyin } = require("./gen-pinyin");
-const supportedPlatforms = ["deepseek", "moonshot", "moonshot", "qwen"];
+const supportedPlatforms = ["deepseek", "moonshot", "openai", "qwen"];
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek", modelName } = props;
