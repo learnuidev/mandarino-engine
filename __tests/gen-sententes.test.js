@@ -70,8 +70,8 @@ const exampleResp = [
 mandarinoClient
   .genSentences({
     // content: "dont la troisième Chinoise dans l'espace",
-    content: "dont",
-    lang: "fr-FR",
+    content: "fit",
+    lang: "fr",
   })
   .then((resp) => {
     console.log("RESP", resp);

@@ -5,6 +5,7 @@ const { resolveHumanLangs } = require("./langs");
 const { chat } = require("./utils/chat");
 
 // const { currentModel } = require("./models");
+
 const promptSimple = `
 You are a language translation expert
 For the given content, give a detailed translation in english and pinyin and detailed explanation.
@@ -68,32 +69,50 @@ So in summary, the English translations of the Chinese character "长" (cháng) 
 //   ml: "",
 // };
 const promptLatin = `
-You are an expert language teacher, given context, return its information in english.
----
-For example for perjudican, it should return:
-## Definition
-The word "perjudican" is the third person plural form of the present indicative tense of the verb "perjudicar." This verb is used to describe the action of causing harm, damage, or disadvantage to someone or something.
-Usage in Context
-In a sentence, "perjudican" can refer to actions that negatively affect people, groups, or situations. For example:
-"Hasty decisions often perjudican the community."
-In this case, it indicates that decisions made without careful consideration can have negative consequences for the community.
-## Synonyms
-Some synonyms for "perjudican" include:
-- Harm
-- Hurt
-- Negatively affect
-## Antonyms
-Antonyms include:
-Benefit
-Help
-Improve
-## Additional Examples
-**Poor labor practices perjudican team morale.**
-Poor labor practices harm team morale.
-**Pollution perjudica the environment.**
-Pollution harms the environment.
-## Conclusion
-Understanding the meaning and usage of "perjudican" is essential for expressing oneself correctly in Spanish and for understanding how certain actions can have adverse effects in various contexts.
+
+You are a latin language expert.
+
+Please return the summary for the given word "fit" in {{language}}. Keep in mind this word is not a english or any other language but a word in the language: {{language}}.
+
+
+For example: if the word is "fit" and the language is french/fr, then please return the following:
+
+French Word: fit
+Explanation:
+Fit is the third-person singular past historic tense (passé simple) of the verb faire (to do/make) in French.
+
+It is used in formal writing or literature to describe a completed action in the past.
+
+It is not used in spoken French, where the passé composé (il a fait) replaces it.
+
+Translation:
+
+English: he/she/one did or he/she/one made
+
+Example:
+
+Il fit ses devoirs → He did his homework.
+
+Elle fit un gâteau → She made a cake.
+
+Pronunciation:
+
+Phonetic: Pronounced like fee (IPA: /fi/).
+
+The final -t is silent.
+
+Context and Usage:
+
+Formality: The passé simple is almost exclusively used in literary or historical contexts (novels, essays, formal reports).
+
+Spoken French: Il a fait (he did/made).
+
+Conjugation:
+
+Je fis (I did) | Tu fis (You did) | Il/Elle/On fit (He/She/One did)
+
+Nuance: Implies a singular, definitive action in the past, often with a sense of detachment or formality.
+
 `;
 const vsPrompt = `
 You are an expert language teacher, given context, return its information in english.
@@ -136,6 +155,15 @@ In some contexts, 煎炸 (jiānzhá) is used as a combined term to refer to vari
 // const prompts = {
 //   ml: "",
 // };
+
+const prompts = {
+  ro: promptLatin,
+  es: promptLatin,
+  it: promptLatin,
+  fr: promptLatin,
+  ["fr-FR"]: promptLatin,
+  pt: promptLatin,
+};
 
 function isChinesePunctuationMark(content) {
   // List of common Chinese punctuation marks
@@ -250,6 +278,12 @@ const resolvePrompt = async ({ content, language }) => {
     return content?.length > 3 ? promptSimple : prompt;
     // return promptSimple;
   }
+
+  const latinPrompt = prompts?.[language];
+
+  if (latinPrompt) {
+    return latinPrompt;
+  }
   return promptSimple;
   // if (["es", "fr", "es-ES", "it-IT", "ro-RO", "fr-FR"]?.includes(language)) {
   //   return promptLatin;
@@ -269,7 +303,12 @@ async function getSummary({ content, lang, openai, model }) {
       language: resolvedLang,
     });
 
-    console.log("PROMPT", resolvedPrompt);
+    const finalPrompt = resolvedPrompt?.replaceAll(
+      "{{language}}",
+      resolvedLang
+    );
+
+    console.log("PROMPT", finalPrompt);
     const resp = await chat(
       {
         openai,
@@ -277,7 +316,7 @@ async function getSummary({ content, lang, openai, model }) {
         messages: [
           {
             role: "system",
-            content: `${resolvedPrompt}
+            content: `${finalPrompt}
         
         Also the content is of the following language: ${resolveHumanLangs(resolvedLang)}`,
           },

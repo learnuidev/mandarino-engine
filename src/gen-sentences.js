@@ -3,7 +3,9 @@ const { detectLanguage } = require("./detect-language");
 const { parseInput } = require("./utils/parse-input");
 
 const promptLatin = `
-You are a {{language}} language expert, given the {{language}} content and the language, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length
+You are a {{language}} language expert, given the {{language}} content and the language, please generate 5 simple and complete sentences examples using the content. Sentences should be atleast 5 characters in length.
+
+Please keep in mind: this is not a english word, but word is in the following language: {{language}}
 
 Please return a stringified JSON response. 
 
@@ -141,6 +143,8 @@ async function _genSentences({ content, lang, openai, model }) {
     `{{language}}`,
     humanLang
   );
+
+  console.log("PROMPT", finalPrompt);
 
   const chatCompletion = await openai.chat.completions.create({
     messages: [
