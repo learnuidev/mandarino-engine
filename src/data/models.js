@@ -19,6 +19,11 @@ const modelsV2 = {
   deepseek: deepseekModels,
   openai: ["gpt-3.5-turbo", "gpt-4o-mini"],
   qwen: ["qwen-plus"],
+  mistral: [
+    "mistral-large-latest",
+    "ministral-3b-latest",
+    "ministral-8b-latest",
+  ],
 };
 
 module.exports = {

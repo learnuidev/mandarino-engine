@@ -21,14 +21,20 @@ const { casualTranslate } = require("./casual-translate");
 const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
 const { genPinyin } = require("./gen-pinyin");
-const supportedPlatforms = ["deepseek", "moonshot", "openai", "qwen"];
+const supportedPlatforms = [
+  "deepseek",
+  "moonshot",
+  "openai",
+  "qwen",
+  "mistral",
+];
 
 const mandarinoApi = (props) => {
   const { apiKey, variant = "deepseek", modelName } = props;
 
   if (!supportedPlatforms?.includes(variant)) {
     throw new Error(
-      `The following platoforms are supported: ${JSON.stringify(supportedPlatforms)}`
+      `The following platforms are supported: ${JSON.stringify(supportedPlatforms)}`
     );
   }
 
@@ -59,6 +65,13 @@ const mandarinoApi = (props) => {
   if (variant === "qwen") {
     openai = new OpenAI({
       baseURL: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+      apiKey: apiKey,
+    });
+  }
+
+  if (variant === "mistral") {
+    openai = new OpenAI({
+      baseURL: "https://api.mistral.ai/v1",
       apiKey: apiKey,
     });
   }
