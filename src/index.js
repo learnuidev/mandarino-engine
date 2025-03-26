@@ -30,7 +30,12 @@ const supportedPlatforms = [
 ];
 
 const mandarinoApi = (props) => {
-  const { apiKey, variant = "deepseek", modelName } = props;
+  const {
+    apiKey,
+    variant = "deepseek",
+    modelName,
+    dangerouslyAllowBrowser = false,
+  } = props;
 
   if (!supportedPlatforms?.includes(variant)) {
     throw new Error(
@@ -46,6 +51,7 @@ const mandarinoApi = (props) => {
   if (variant === "openai") {
     openai = new OpenAI({
       apiKey: apiKey,
+      dangerouslyAllowBrowser,
     });
   }
 
@@ -53,6 +59,7 @@ const mandarinoApi = (props) => {
     openai = new OpenAI({
       baseURL: "https://api.deepseek.com",
       apiKey: apiKey,
+      dangerouslyAllowBrowser,
     });
   }
 
@@ -60,12 +67,14 @@ const mandarinoApi = (props) => {
     openai = new OpenAI({
       baseURL: "https://api.moonshot.cn/v1",
       apiKey: apiKey,
+      dangerouslyAllowBrowser,
     });
   }
   if (variant === "qwen") {
     openai = new OpenAI({
       baseURL: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
       apiKey: apiKey,
+      dangerouslyAllowBrowser,
     });
   }
 
@@ -73,6 +82,7 @@ const mandarinoApi = (props) => {
     openai = new OpenAI({
       baseURL: "https://api.mistral.ai/v1",
       apiKey: apiKey,
+      dangerouslyAllowBrowser,
     });
   }
 
