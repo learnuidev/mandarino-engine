@@ -269,6 +269,15 @@ const resolvePrompt = async ({ content, language }) => {
   if (isChinesePunctuationMark(content)) {
     return chinesePunctuationPrompt;
   }
+
+  // check if it is vs: i.e 煎 vs 炸
+  const isVs = content.toLowerCase().split("vs")?.length === 2;
+  if (isVs) {
+    return vsPrompt;
+  }
+  return content?.length > 3 ? promptSimple : prompt;
+  // return promptSimple;
+
   if (language === "zh") {
     // check if it is vs: i.e 煎 vs 炸
     const isVs = content.toLowerCase().split("vs")?.length === 2;
