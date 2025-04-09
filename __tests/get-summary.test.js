@@ -9,8 +9,8 @@ const { mandarinoClient } = require("./test.client");
 mandarinoClient
   .getSummary({
     // content: "dont la troisième Chinoise dans l'espace",
-    content: "fit",
-    lang: "fr",
+    content: "Pingzhi était un peu sceptique à ce sujet à cause du travail",
+    lang: "zh",
   })
   .then((resp) => {
     console.log("RESP", resp);

@@ -72,7 +72,7 @@ const promptLatin = `
 
 You are a latin language expert.
 
-Please return the summary for the given word "fit" in {{language}}. Keep in mind this word is not a english or any other language but a word in the language: {{language}}.
+Please return the summary for the content in {{language}}. Keep in mind this word is not a english or any other language but a word in the language: {{language}}.
 
 
 For example: if the word is "fit" and the language is french/fr, then please return the following:
@@ -270,7 +270,6 @@ const resolvePrompt = async ({ content, language }) => {
     return chinesePunctuationPrompt;
   }
 
-  // check if it is vs: i.e 煎 vs 炸
   const isVs = content.toLowerCase().split("vs")?.length === 2;
   if (isVs) {
     return vsPrompt;
