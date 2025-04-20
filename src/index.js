@@ -21,6 +21,7 @@ const { casualTranslate } = require("./casual-translate");
 const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
 const { genPinyin } = require("./gen-pinyin");
+const { genRoman } = require("./gen-roman");
 const supportedPlatforms = [
   "deepseek",
   "moonshot",
@@ -120,6 +121,9 @@ const mandarinoApi = (props) => {
 
     genPinyin: async ({ content }) => {
       return genPinyin({ content, openai, model });
+    },
+    genRoman: async ({ content }) => {
+      return genRoman({ content, openai, model });
     },
 
     casualTranslate: async ({ content, targetLang, sourceLang }) => {
