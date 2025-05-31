@@ -68,23 +68,27 @@ const simplifiedToTraditional = (tradChars) => {
 };
 
 const chineseConverter = (type) => {
-  if (typeof type === "string") {
-    return chineseConverter({ input: type, from: "traditional" });
-    // console.log("IS SIMPLIFIED", isSimplifiedChinese(type));
-    // if (isSimplifiedChinese(type)) {
-    //   console.log("IS SIMPLIFIED", isSimplifiedChinese(type));
-    //   return chineseConverter({ input: type, from: "simplified" });
-    // } else {
-    //   return chineseConverter({ input: type, from: "traditional" });
-    // }
-  }
   const { input, from } = type;
+  try {
+    if (typeof type === "string") {
+      return chineseConverter({ input: type, from: "traditional" });
+      // console.log("IS SIMPLIFIED", isSimplifiedChinese(type));
+      // if (isSimplifiedChinese(type)) {
+      //   console.log("IS SIMPLIFIED", isSimplifiedChinese(type));
+      //   return chineseConverter({ input: type, from: "simplified" });
+      // } else {
+      //   return chineseConverter({ input: type, from: "traditional" });
+      // }
+    }
 
-  if (from === "traditional") {
-    return traditionalToSimplified(input);
+    if (from === "traditional") {
+      return traditionalToSimplified(input);
+    }
+
+    return simplifiedToTraditional(input);
+  } catch (err) {
+    return input;
   }
-
-  return simplifiedToTraditional(input);
 };
 
 const isChinese = (chars) => {
