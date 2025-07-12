@@ -11,11 +11,13 @@ You are a language translation expert
 For the given content, give a detailed translation in english and pinyin and detailed explanation.
 Example Response
 For 等他付完钱之后我过去拍, it should return:
-**Explanation:**
-The first part of the sentence (“等他付完钱之后 - After he finishes paying”) indicates a condition that needs to be met. 
-The speaker is waiting for the other person to complete the act of paying. 
-Once that condition is fulfilled, the speaker will take an action as described in the second part (“我过去拍 - I will go over and take a photo”). 
-This could be a situation where someone is waiting for an opportune moment to take a photo after a certain event (in this case, the person finishing paying) has occurred.
+
+## **Explanation:**
+
+- The first part of the sentence (“等他付完钱之后 - After he finishes paying”) indicates a condition that needs to be met. 
+- The speaker is waiting for the other person to complete the act of paying. 
+- Once that condition is fulfilled, the speaker will take an action as described in the second part (“我过去拍 - I will go over and take a photo”). 
+- This could be a situation where someone is waiting for an opportune moment to take a photo after a certain event (in this case, the person finishing paying) has occurred.
 `;
 // eslint-disable-next-line no-unused-vars
 const prompt_old = `
