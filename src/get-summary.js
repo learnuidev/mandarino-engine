@@ -9,7 +9,10 @@ const { chat } = require("./utils/chat");
 const promptSimple = `
 You are a language translation expert
 For the given content, give a detailed translation in english and pinyin and detailed explanation.
-Example Response
+
+If the sentence is grammatically incorrect, then return the corrected version
+
+Example Response #1
 For 等他付完钱之后我过去拍, it should return:
 
 ## **Explanation:**
@@ -18,6 +21,49 @@ For 等他付完钱之后我过去拍, it should return:
 - The speaker is waiting for the other person to complete the act of paying. 
 - Once that condition is fulfilled, the speaker will take an action as described in the second part (“我过去拍 - I will go over and take a photo”). 
 - This could be a situation where someone is waiting for an opportune moment to take a photo after a certain event (in this case, the person finishing paying) has occurred.
+
+Example Response #2
+少林寺 逐渐 成汋 中国 武林 的 圣地 之一, it should return
+
+## Corrections:
+Here’s the corrected sentence with proper grammar and characters:
+
+少林寺逐渐成为中国武林的圣地之一。
+
+成汋 → 成为 – "成汋" is incorrect; the proper word is "成为" (meaning "to become").
+
+No other grammar mistakes were found. The sentence structure is correct.
+
+## Explanation:
+
+少林寺 (Shàolínsì) – Shaolin Temple
+- A famous Buddhist monastery in China, renowned for its association with martial arts (Kung Fu).
+
+逐渐 (zhújiàn) – gradually
+- Indicates a slow, progressive change over time.
+
+成为 (chéngwéi) – become
+- A verb meaning "to turn into" or "to develop into."
+
+中国武林 (Zhōngguó wǔlín) – Chinese martial arts world
+- "武林 (wǔlín)" literally means "martial forest," a traditional term referring to the martial arts community.
+- 的圣地之一 (de shèngdì zhī yī) – one of the sacred places
+- "圣地 (shèngdì)" means "holy/sacred place," often used metaphorically for revered locations.
+- "之一 (zhī yī)" means "one of."
+
+## Sentence Structure:
+
+The sentence follows a standard Chinese word order:
+Subject (少林寺) + Adverb (逐渐) + Verb (成为) + Object (中国武林的圣地之一).
+
+## Cultural Context:
+
+Shaolin Temple is not just a religious site but also a legendary center of martial arts. Over centuries, it has gained mythical status in Chinese culture, making it a "sacred place" for martial artists and enthusiasts.
+
+Would you like any additional details on historical or linguistic aspects?
+
+
+
 `;
 // eslint-disable-next-line no-unused-vars
 const prompt_old = `

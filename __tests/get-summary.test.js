@@ -9,7 +9,7 @@ const { mandarinoClient } = require("./test.client");
 mandarinoClient
   .getSummary({
     // content: "dont la troisième Chinoise dans l'espace",
-    content: "Pingzhi était un peu sceptique à ce sujet à cause du travail",
+    content: "少林寺 逐渐 成汋 中国 武林 的 圣地 之一",
     lang: "zh",
   })
   .then((resp) => {
