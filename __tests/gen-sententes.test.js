@@ -69,9 +69,8 @@ const exampleResp = [
 
 mandarinoClient
   .genSentences({
-    // content: "dont la troisième Chinoise dans l'espace",
-    content: "fit",
-    lang: "fr",
+    content: "Es esa mi fortuna, es ese mi castigo",
+    lang: "es",
   })
   .then((resp) => {
     console.log("RESP", resp);

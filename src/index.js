@@ -139,6 +139,7 @@ const mandarinoApi = (props) => {
     listComponents,
     listHskWords,
     model,
+    source: variant,
   };
 };
 
