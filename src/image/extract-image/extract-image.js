@@ -18,19 +18,15 @@ function parseString(inputString) {
 
 const prompt = `
 You are an expert chinese tutor,
-extract all the chinese text. In additon please provide pinyin and english translations as well. Please extract the images from top to bottom.
+Please extract all the chinese text as well as provide description of the image.
+
+In additon please provide pinyin and english translations as well. Please extract the images from top to bottom.
 
 Please provide the response in stringified JSON format. For example
-[{"hanzi": "...", "pinyin": "..", "en": ".."}]
-
-`;
-
-const promptWithCoordinates = `
-You are an expert chinese tutor,
-extract all the chinese text. In additon please provide pinyin and english translations as well. Please extract the images from top to bottom and also provide coordinates in the image
-
-Please provide the response in stringified JSON format. For example
-[{"hanzi": "...", "pinyin": "..", "en": ".."}]
+{
+"description": "...",
+ "details": [{"hanzi": "...", "pinyin": "..", "en": ".."}]
+}
 
 `;
 
@@ -48,7 +44,7 @@ const extractImage = async (
         content: [
           {
             type: "text",
-            text: includeCoordinates ? promptWithCoordinates : prompt,
+            text: prompt,
           },
           {
             type: "image_url",
