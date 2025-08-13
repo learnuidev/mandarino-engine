@@ -26,8 +26,7 @@ const modelsV2 = {
     "ministral-3b-latest",
     "ministral-8b-latest",
   ],
-
-  minimaxMax: Object.values(supportedMinimaxTextModels),
+  minimax: Object.values(supportedMinimaxTextModels),
 };
 
 module.exports = {

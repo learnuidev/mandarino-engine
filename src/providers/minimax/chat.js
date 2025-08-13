@@ -1,7 +1,3 @@
-require("dotenv").config();
-
-const minimaxApiKey = process.env.MINIMAX_API_KEY;
-
 const url = `https://api.minimax.io/v1/text/chatcompletion_v2`;
 
 const supportedMinimaxTextModels = {
@@ -88,6 +84,8 @@ const MiniMaxOpenAi = ({ apiKey }) => {
       completions: {
         create: async ({ messages, model }) => {
           const resp = await minimaxChat({ messages, model, apiKey });
+
+          console.log("RESP", JSON.stringify(resp, null, 4));
 
           return resp;
         },

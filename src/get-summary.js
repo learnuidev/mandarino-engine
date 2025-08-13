@@ -60,8 +60,6 @@ Subject (少林寺) + Adverb (逐渐) + Verb (成为) + Object (中国武林的�
 
 Shaolin Temple is not just a religious site but also a legendary center of martial arts. Over centuries, it has gained mythical status in Chinese culture, making it a "sacred place" for martial artists and enthusiasts.
 
-Would you like any additional details on historical or linguistic aspects?
-
 
 
 `;

@@ -29,6 +29,7 @@ const supportedPlatforms = [
   "openai",
   "qwen",
   "mistral",
+  "minimax",
 ];
 
 const mandarinoApi = (props) => {
