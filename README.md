@@ -35,11 +35,18 @@ const mandarino = mandarinoApi({
   modelName: "moonshot-v1-8k" || "moonshot-v1-32k" || "moonshot-v1-128k" || "moonshot-v1-auto"
 });
 
-//
+// or
 const mandarino = mandarinoApi({
   apiKey: "QWEN_API_KEY",
   variant: "qwen",
 });
+
+// or
+const mandarino = mandarinoApi({
+  apiKey: "MINIMAX_API_KEY",
+  variant: "minimax"
+})
+
 
 // Available Features
 const {

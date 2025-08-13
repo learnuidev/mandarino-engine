@@ -1,3 +1,5 @@
+const { supportedMinimaxTextModels } = require("../providers/minimax/chat");
+
 const models = {
   mini4o: "gpt-4o-mini",
   turbo35: "gpt-3.5-turbo",
@@ -24,6 +26,8 @@ const modelsV2 = {
     "ministral-3b-latest",
     "ministral-8b-latest",
   ],
+
+  minimaxMax: Object.values(supportedMinimaxTextModels),
 };
 
 module.exports = {

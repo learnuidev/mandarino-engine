@@ -22,6 +22,7 @@ const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
 const { genPinyin } = require("./gen-pinyin");
 const { genRoman } = require("./gen-roman");
+const { MiniMaxOpenAi } = require("./providers/minimax/chat");
 const supportedPlatforms = [
   "deepseek",
   "moonshot",
@@ -84,6 +85,12 @@ const mandarinoApi = (props) => {
       baseURL: "https://api.mistral.ai/v1",
       apiKey: apiKey,
       dangerouslyAllowBrowser,
+    });
+  }
+
+  if (variant === "minimax") {
+    openai = MiniMaxOpenAi({
+      apiKey: apiKey,
     });
   }
 
