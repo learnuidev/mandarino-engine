@@ -126,10 +126,13 @@ const mandarinoApi = (props) => {
         return extractImage({
           imageUrl,
           openai,
-          model: "moonshot-v1-128k-vision-preview",
+          model: "kimi-latest",
+          variant,
+          // model: "moonshot-v1-128k-vision-preview",
+          // model: "moonshot-v1-8k-vision-preview",
         });
       }
-      return extractImage({ imageUrl, openai, model });
+      return extractImage({ imageUrl, openai, model, variant });
     },
 
     listSynonyms: async ({ content, lang }) => {
