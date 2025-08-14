@@ -105,12 +105,10 @@ description, input, pinyin, en
 
     console.log("latency: ", t1 - t0);
 
-    const responseContent = transformMenuData(
-      parseString(response?.choices?.[0]?.message?.content)
-    );
+    const originalResponse = response?.choices?.[0]?.message?.content;
+    const responseContent = transformMenuData(parseString(originalResponse));
 
-    console.log("RESPONSE CONTENT", responseContent);
-    return responseContent;
+    return { ...responseContent, originalResponse, model };
 
     // return parseString(response?.choices?.[0]?.message?.content);
   }
@@ -142,7 +140,10 @@ description, input, pinyin, en
 
   console.log("latency: ", t1 - t0);
 
-  return parseString(response?.choices?.[0]?.message?.content);
+  const originalResponse = response?.choices?.[0]?.message?.content;
+  const responseContent = parseString(originalResponse);
+
+  return { ...responseContent, originalResponse, model };
 };
 
 // extractImage(
