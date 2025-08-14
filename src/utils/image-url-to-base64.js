@@ -1,25 +1,24 @@
-const https = require("https"); // Use 'http' for non-HTTPS URLs
+async function imageUrlToBase64(url) {
+  // Fetch the remote image and get the ArrayBuffer
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch image: ${response.status} ${response.statusText}`
+    );
+  }
 
-function imageUrlToBase64(url) {
-  return new Promise((resolve, reject) => {
-    https
-      .get(url, (resp) => {
-        let data = [];
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
 
-        resp.on("data", (chunk) => {
-          data.push(chunk);
-        });
+  // Determine the extension from the Content-Type header
+  const contentType = response.headers.get("content-type") || "image/png";
+  const ext = contentType.split("/")[1]; // e.g. "png", "jpeg", etc.
 
-        resp.on("end", () => {
-          const buffer = Buffer.concat(data);
-          const base64String = buffer.toString("base64");
-          resolve(base64String);
-        });
-      })
-      .on("error", (err) => {
-        reject(err);
-      });
-  });
+  // Convert to Base64
+  const base64 = buffer.toString("base64");
+  const dataUrl = `data:${contentType};base64,${base64}`;
+
+  return dataUrl;
 }
 
 module.exports = {

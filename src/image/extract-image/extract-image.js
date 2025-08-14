@@ -1,3 +1,4 @@
+const { imageUrlToBase64 } = require("../../utils/image-url-to-base64");
 const { parseInput } = require("../../utils/parse-input");
 
 function parseString(inputString) {
@@ -36,6 +37,8 @@ const extractImage = async (
 ) => {
   const t0 = performance.now();
 
+  const base64Url = await imageUrlToBase64(imageUrl);
+
   const response = await openai.chat.completions.create({
     model: model,
     messages: [
@@ -49,7 +52,7 @@ const extractImage = async (
           {
             type: "image_url",
             image_url: {
-              url: imageUrl,
+              url: base64Url,
             },
           },
         ],

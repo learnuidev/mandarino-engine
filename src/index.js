@@ -69,7 +69,7 @@ const mandarinoApi = (props) => {
 
   if (variant === "moonshot") {
     openai = new OpenAI({
-      baseURL: "https://api.moonshot.cn/v1",
+      baseURL: "https://api.moonshot.ai/v1",
       apiKey: apiKey,
       dangerouslyAllowBrowser,
     });
@@ -118,8 +118,16 @@ const mandarinoApi = (props) => {
     },
 
     extractImage: async ({ imageUrl }) => {
-      if (["deepseek", "moonshot"].includes(variant)) {
-        throw new Error("Operation not supported");
+      if (!["openai", "moonshot"].includes(variant)) {
+        throw new Error("Operation currently not supported");
+      }
+
+      if (variant === "moonshot") {
+        return extractImage({
+          imageUrl,
+          openai,
+          model: "moonshot-v1-128k-vision-preview",
+        });
       }
       return extractImage({ imageUrl, openai, model });
     },
