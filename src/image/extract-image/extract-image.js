@@ -12,8 +12,9 @@ function parseString(inputString) {
     const parsedData = parseInput(jsonString);
     return parsedData;
   } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return inputString;
+    throw error;
+    // console.error("Error parsing JSON:", error);
+    // return inputString;
   }
 }
 
