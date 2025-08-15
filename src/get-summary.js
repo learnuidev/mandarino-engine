@@ -118,6 +118,8 @@ const promptLatin = `
 
 You are a latin language expert.
 
+If the sentence is grammatically incorrect, then return the corrected version
+
 Please return the summary for the content in {{language}}. Keep in mind this word is not a english or any other language but a word in the language: {{language}}.
 
 
@@ -162,6 +164,9 @@ Nuance: Implies a singular, definitive action in the past, often with a sense of
 `;
 const vsPrompt = `
 You are an expert language teacher, given context, return its information in english.
+
+If the sentence is grammatically incorrect, then return the corrected version
+
 ---
 For example for 煎 vs 炸, it should return:
 For example:
@@ -247,6 +252,8 @@ function isChinesePunctuationMark(content) {
 
 const chinesePunctuationPrompt = `
 Given a Chinese punctuation, please give intro, history and use case of the chinese punctuation:
+
+If the sentence is grammatically incorrect, then return the corrected version
 
 
 For example for ，it should return:
