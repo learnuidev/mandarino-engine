@@ -24,6 +24,7 @@ const { genPinyin } = require("./gen-pinyin");
 const { genRoman } = require("./gen-roman");
 const { MiniMaxOpenAi } = require("./providers/minimax/chat");
 const { genEn } = require("./gen-en");
+const { genChinglish } = require("./gen-chinglish");
 const supportedPlatforms = [
   "deepseek",
   "moonshot",
@@ -147,6 +148,9 @@ const mandarinoApi = (props) => {
     },
     genEn: async ({ content }) => {
       return genEn({ content, openai, model });
+    },
+    genChinglish: async ({ content }) => {
+      return genChinglish({ content, openai, model });
     },
 
     casualTranslate: async ({ content, targetLang, sourceLang }) => {
