@@ -25,6 +25,11 @@ const { genRoman } = require("./gen-roman");
 const { MiniMaxOpenAi } = require("./providers/minimax/chat");
 const { genEn } = require("./gen-en");
 const { genChinglish } = require("./gen-chinglish");
+const {
+  genSentenceTransformations,
+} = require("./gen-sentence-transformations");
+const { segmentText } = require("./segment-text");
+const { segmentTextRaw } = require("./segment-text-raw");
 const supportedPlatforms = [
   "deepseek",
   "moonshot",
@@ -111,6 +116,9 @@ const mandarinoApi = (props) => {
     genSentences: async ({ content, lang }) => {
       return genSentences({ lang, content, openai, model });
     },
+    genSentenceTransformations: async ({ content, lang }) => {
+      return genSentenceTransformations({ lang, content, openai, model });
+    },
     genConversation: async ({ topic, subtopic, lang }) => {
       return genConversation({ topic, subtopic, lang, openai, model });
     },
@@ -152,6 +160,9 @@ const mandarinoApi = (props) => {
     genChinglish: async ({ content }) => {
       return genChinglish({ content, openai, model });
     },
+    segmentText: async ({ content, lang }) => {
+      return segmentText({ text, lamg, openai, model });
+    },
 
     casualTranslate: async ({ content, targetLang, sourceLang }) => {
       return casualTranslate({
@@ -166,6 +177,7 @@ const mandarinoApi = (props) => {
     listComponents,
     listHskWords,
     model,
+    segmentTextRaw,
     source: variant,
   };
 };

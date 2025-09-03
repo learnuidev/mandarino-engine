@@ -59,6 +59,7 @@ const {
   listComponents,
   listHskWords
   extractImage,
+  genSentenceTransformations
 } = mandarino;
 ```
 
@@ -75,8 +76,12 @@ const {
 7. List Components `listComponents`
 8. List HSK Words `listHskWords`
 9. Extract Image `extractImage`
-10. List Synoynms `listSynonyms` [NEW]
-11. Casual Translate `casualTranslate` [NEW]
+10. List Synoynms `listSynonyms`
+11. Casual Translate `casualTranslate`
+12. Gen Sentence Transformations `genSentenceTransformations` [NEW]
+13. Get Chinglish `getChinglish` [NEW]
+14. Segment Text `segmentText` [NEW]
+15. Segment Text Raw `segmentTextRaw` [NEW]
 
 ## 1. Discover
 
