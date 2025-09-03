@@ -160,8 +160,8 @@ const mandarinoApi = (props) => {
     genChinglish: async ({ content }) => {
       return genChinglish({ content, openai, model });
     },
-    segmentText: async ({ content, lang }) => {
-      return segmentText({ text, lamg, openai, model });
+    segmentText: async ({ text, lang, granularity }) => {
+      return segmentText({ text, lang, openai, model, granularity });
     },
 
     casualTranslate: async ({ content, targetLang, sourceLang }) => {

@@ -1,6 +1,7 @@
+const { detectLanguage } = require("./detect-language");
 const { segmentTextRaw } = require("./segment-text-raw");
 
-async function segmentText({ text, lang, openai, model }) {
+async function segmentText({ text, lang, openai, model, granularity }) {
   let resolvedLang;
   if (lang) {
     console.log(`Lang provided: ${lang}`);
@@ -8,7 +9,7 @@ async function segmentText({ text, lang, openai, model }) {
   } else {
     console.log(`Lang not found. Resolving now`);
     resolvedLang = await detectLanguage({
-      content: content?.slice(0, 16),
+      content: text?.slice(0, 16),
       openai,
       model,
     });
@@ -16,7 +17,9 @@ async function segmentText({ text, lang, openai, model }) {
     console.log(`Resolved lang: ${resolvedLang}`);
   }
 
-  const resp = await segmentTextRaw({ text, lang });
+  const resp = await segmentTextRaw({ text, lang: resolvedLang, granularity });
+
+  return resp;
 }
 
 module.exports = {

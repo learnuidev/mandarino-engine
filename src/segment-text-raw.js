@@ -9,8 +9,18 @@ function uuid() {
   return uuidv4();
 }
 
-async function segmentTextRaw({ text, lang }) {
-  const segmenter = new Intl.Segmenter(lang, { granularity: "word" });
+const granularityOptions = {
+  grapheme: "grapheme",
+  word: "word",
+  sentence: "sentence",
+};
+
+async function segmentTextRaw({
+  text,
+  lang,
+  granularity = granularityOptions.word,
+}) {
+  const segmenter = new Intl.Segmenter(lang, { granularity });
 
   const segments = segmenter.segment(text);
   let res = [];
