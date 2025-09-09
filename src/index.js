@@ -30,6 +30,7 @@ const {
 } = require("./gen-sentence-transformations");
 const { segmentText } = require("./segment-text");
 const { segmentTextRaw } = require("./segment-text-raw");
+const { getCorrection } = require("./get-correction");
 const supportedPlatforms = [
   "deepseek",
   "moonshot",
@@ -166,6 +167,15 @@ const mandarinoApi = (props) => {
 
     casualTranslate: async ({ content, targetLang, sourceLang }) => {
       return casualTranslate({
+        content,
+        openai,
+        model,
+        targetLang,
+        sourceLang,
+      });
+    },
+    getCorrection: async ({ content, targetLang, sourceLang }) => {
+      return getCorrection({
         content,
         openai,
         model,
