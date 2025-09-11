@@ -1,5 +1,7 @@
-const { minimax } = require("../test.client");
+// const { minimax } = require("../test.client");
 
-minimax.listSystemVoices({ lang: "zh" }).then((resp) => {
+const { minimaxApi } = require("../test.client");
+
+minimaxApi.listSystemVoices({ lang: "zh" }).then((resp) => {
   console.log("resp", resp);
 });

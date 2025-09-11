@@ -31,6 +31,8 @@ const {
 const { segmentText } = require("./segment-text");
 const { segmentTextRaw } = require("./segment-text-raw");
 const { getCorrection } = require("./get-correction");
+const { createMinimaxApi } = require("./minimax/create-minimax-api");
+
 const supportedPlatforms = [
   "deepseek",
   "moonshot",
@@ -199,6 +201,7 @@ module.exports = {
   isChinese,
   starBucksMenu,
   starBucksMenuWithCoordinates,
+  createMinimaxApi,
 };
 
 // const mandarino = mandarinoApi({

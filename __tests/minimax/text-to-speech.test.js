@@ -1,6 +1,6 @@
-const { minimax } = require("../test.client");
+const { minimaxApi } = require("../test.client");
 
-minimax
+minimaxApi
   .textToSpeech({
     text: "你好兄弟",
     lang: "zh",

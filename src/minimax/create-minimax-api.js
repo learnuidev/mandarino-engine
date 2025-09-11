@@ -1,7 +1,7 @@
 const { listSystemVoicesApi } = require("./list-system-voices-api");
 const { minimaxTextToSpeechApi } = require("./minimax-text-to-speech-api");
 
-const minimaxApi = ({ minimaxApiKeys }) => {
+const createMinimaxApi = ({ minimaxApiKeys }) => {
   const listSystemVoices = ({ lang }) => {
     return listSystemVoicesApi({ minimaxApiKeys, lang });
   };
@@ -23,5 +23,5 @@ const minimaxApi = ({ minimaxApiKeys }) => {
 };
 
 module.exports = {
-  minimaxApi,
+  createMinimaxApi,
 };
