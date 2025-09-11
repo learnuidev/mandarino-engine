@@ -2,6 +2,8 @@
 
 const { listSystemVoicesApi } = require("./list-system-voices-api");
 
+const ulid = require("ulid");
+
 const emotionTypes = [
   "happy",
   "sad",
@@ -154,6 +156,7 @@ const minimaxTextToSpeechApi = async ({
       value: text,
       chunks: subtitlesJson.map((subtitle) => {
         return {
+          id: ulid.ulid(),
           type: "word",
           start: subtitle.text_begin,
           end: subtitle.text_end,
@@ -166,6 +169,7 @@ const minimaxTextToSpeechApi = async ({
 
     const sentences = chunks?.chunks?.map((chunk) => {
       return {
+        id: ulid.ulid(),
         lang,
         input: chunk?.value,
         startIndex: chunk?.start,
@@ -208,6 +212,7 @@ const minimaxTextToSpeechApi = async ({
 
 module.exports = {
   minimaxTextToSpeechApi,
+  emotionsMap,
 };
 
 // let text = `还真是这样，我的项目就是用这个新版流程搞出来的。现在ai可以直接出带交互甚至比较美观的gui/cli，设计师的工作往后挪了，而且设计师也可以指挥ai实现自己的设计。`;

@@ -1,6 +1,6 @@
 {
   "name": "mandarino",
-  "version": "2025.09.11.15.26",
+  "version": "2025.09.11.15.35",
   "description": "Official Mandarino SDK [TypeScript coming soon]",
   "main": "src/index.js",
   "bin": {
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "openai": "^4.74.0",
+    "ulid": "^3.0.1",
     "zod": "^3.23.8"
   }
 }
