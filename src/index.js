@@ -48,6 +48,7 @@ const mandarinoApi = (props) => {
     variant = "deepseek",
     modelName,
     dangerouslyAllowBrowser = false,
+    baseUrl,
   } = props;
 
   if (!supportedPlatforms?.includes(variant)) {
@@ -130,7 +131,7 @@ const mandarinoApi = (props) => {
     },
 
     extractImage: async ({ imageUrl }) => {
-      if (!["openai", "moonshot"].includes(variant)) {
+      if (!["openai", "moonshot", "qwen"].includes(variant)) {
         throw new Error("Operation currently not supported");
       }
 

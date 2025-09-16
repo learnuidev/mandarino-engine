@@ -18,28 +18,29 @@ function parseString(inputString) {
 }
 
 function transformMenuData(menuObj) {
-  const { description, input, pinyin, en } = menuObj;
+  const { title, description, details } = menuObj;
 
   // Split lines
-  const inputLines = input.split("\n");
-  const pinyinLines = pinyin.split("\n");
-  const enLines = en.split("\n");
+  // const inputLines = input.split("\n");
+  // const pinyinLines = pinyin.split("\n");
+  // const enLines = en.split("\n");
 
   // Helper to see if a line contains a price (so it's a menu item, not header)
-  const hasPrice = (line) => /\d+\.\d{1,2}/.test(line);
+  // const hasPrice = (line) => /\d+\.\d{1,2}/.test(line);
 
-  const details = [];
-  for (let i = 0; i < inputLines.length; i++) {
-    if (hasPrice(inputLines[i])) {
-      details.push({
-        hanzi: inputLines[i],
-        pinyin: pinyinLines[i],
-        en: enLines[i],
-      });
-    }
-  }
+  // const details = [];
+  // for (let i = 0; i < inputLines.length; i++) {
+  //   if (hasPrice(inputLines[i])) {
+  //     details.push({
+  //       hanzi: inputLines[i],
+  //       pinyin: pinyinLines[i],
+  //       en: enLines[i],
+  //     });
+  //   }
+  // }
 
   return {
+    title,
     description,
     details,
   };
@@ -47,15 +48,21 @@ function transformMenuData(menuObj) {
 
 const prompt = `
 You are an expert chinese tutor,
-Please extract all the chinese text as well as provide description of the image.
+Please extract all the chinese text as well as provide title and description of the image.
 
 In additon please provide pinyin and english translations as well. Please extract the images from top to bottom.
 
+Also please make sure that if a sentence is breaking, then ensure that it flows as a continuous sentence.
+
 Please provide the response in stringified JSON format. For example
 {
-"description": "...",
- "details": [{"hanzi": "...", "pinyin": "..", "en": ".."}]
+"title": "Title of the image in english.",
+"description": "description of the image in english.",
+ "details": [{"input": "这是位于法国塞里昂的法布尔故居", "pinyin": "Zhè shì wèi yú Fǎguó Sāilóng de Fǎbù'ěr gùjū", "en": "This is Fabre's former residence located in Sérignan, France."}]
 }
+
+
+Please ensure that title and description are in ENGLISH. Title should be short and sweet
 
 `;
 
@@ -66,52 +73,6 @@ const extractImage = async (
   const t0 = performance.now();
 
   console.log("variant", variant);
-
-  if (variant === "moonshot") {
-    const base64Url = await imageUrlToBase64(imageUrl);
-
-    const response = await openai.chat.completions.create({
-      model: model,
-      messages: [
-        {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text: `
-You are an expert image text extractor
-Please extract all the original text input as well as provide description of the image.
-
-In additon please provide pinyin and english translations as well. Please extract the images from top to bottom.
-
-Please provide the response in stringified csv format like so,
-description, input, pinyin, en
-}
-
-`,
-            },
-            {
-              type: "image_url",
-              image_url: {
-                url: base64Url,
-              },
-            },
-          ],
-        },
-      ],
-    });
-
-    const t1 = performance.now();
-
-    console.log("latency: ", t1 - t0);
-
-    const originalResponse = response?.choices?.[0]?.message?.content;
-    const responseContent = transformMenuData(parseString(originalResponse));
-
-    return { ...responseContent, originalResponse, model };
-
-    // return parseString(response?.choices?.[0]?.message?.content);
-  }
 
   const base64Url = await imageUrlToBase64(imageUrl);
 
@@ -144,6 +105,8 @@ description, input, pinyin, en
   const responseContent = parseString(originalResponse);
 
   return { ...responseContent, originalResponse, model };
+
+  // return parseString(response?.choices?.[0]?.message?.content);
 };
 
 // extractImage(

@@ -20,6 +20,8 @@ const qwenModels = {
   qwen3: "qwen3-coder-plus",
   plus: "qwen-plus",
   q3NextInstruct: "qwen3-next-80b-a3b-instruct",
+  qwenImage: "qwen-image",
+  ocr: "qwen-vl-ocr",
 };
 
 const deepseekModels = ["deepseek-chat", "deepseek-r1"];
