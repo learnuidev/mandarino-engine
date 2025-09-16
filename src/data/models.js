@@ -19,6 +19,7 @@ const moonShotModels = [
 const qwenModels = {
   qwen3: "qwen3-coder-plus",
   plus: "qwen-plus",
+  q3NextInstruct: "qwen3-next-80b-a3b-instruct",
 };
 
 const deepseekModels = ["deepseek-chat", "deepseek-r1"];
