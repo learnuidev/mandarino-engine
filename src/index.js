@@ -32,7 +32,7 @@ const { segmentText } = require("./segment-text");
 const { segmentTextRaw } = require("./segment-text-raw");
 const { getCorrection } = require("./get-correction");
 const { createMinimaxApi } = require("./minimax/create-minimax-api");
-const { listTranscript } = require("./list-transcript");
+// const { listTranscript } = require("./list-transcript");
 
 const supportedPlatforms = [
   "deepseek",
@@ -200,7 +200,7 @@ module.exports = {
   mandarinoApi,
   listComponents,
   chineseConverter,
-  listTranscript,
+  // listTranscript,
   isChinese,
   starBucksMenu,
   starBucksMenuWithCoordinates,
