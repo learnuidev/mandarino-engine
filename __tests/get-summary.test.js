@@ -1,4 +1,4 @@
-const { mandarinoClient } = require("./test.client");
+const { mandarinoClient, mandarinoDeepseek } = require("./test.client");
 
 // mandarinoClient
 //   .genSentences({ content: "想要更上一层楼的话 那你得努力挣扎" })
@@ -6,7 +6,7 @@ const { mandarinoClient } = require("./test.client");
 //     console.log("RESP", resp);
 //   });
 
-mandarinoClient
+mandarinoDeepseek
   .getSummary({
     // content: "dont la troisième Chinoise dans l'espace",
     content: "少林寺 逐渐 成汋 中国 武林 的 圣地 之一",

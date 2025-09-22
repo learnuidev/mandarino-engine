@@ -24,7 +24,11 @@ const qwenModels = {
   ocr: "qwen-vl-ocr",
 };
 
-const deepseekModels = ["deepseek-chat", "deepseek-r1"];
+const deepseekModels = [
+  // "deepseek-v3.1-terminus",
+  "deepseek-chat",
+  "deepseek-r1",
+];
 
 const modelsV2 = {
   openai: ["gpt-4o-mini", "gpt-3.5-turbo"],

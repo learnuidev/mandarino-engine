@@ -143,7 +143,15 @@ const mandarinoApi = (props) => {
       return genConversation({ topic, subtopic, lang, openai, model });
     },
     getSummary: async ({ content, lang }) => {
-      return getSummary({ content, lang, openai, model });
+      const t0 = performance.now();
+      const resp = await getSummary({ content, lang, openai, model });
+
+      const t1 = performance.now();
+
+      return {
+        ...resp,
+        latency: t1 - t0,
+      };
     },
 
     extractImage: async ({ imageUrl }) => {
