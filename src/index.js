@@ -18,7 +18,7 @@ const { listHskWords } = require("./list-hsk-words");
 const { genSentences } = require("./gen-sentences");
 const { listSynonyms } = require("./list-synonyms");
 const { casualTranslate } = require("./casual-translate");
-const { verifyModel } = require("./utils/verify-model");
+// const { verifyModel } = require("./utils/verify-model");
 const { getDefaultModel } = require("./utils/get-defaullt-model");
 const { genPinyin } = require("./gen-pinyin");
 const { genRoman } = require("./gen-roman");
@@ -32,7 +32,9 @@ const { segmentText } = require("./segment-text");
 const { segmentTextRaw } = require("./segment-text-raw");
 const { getCorrection } = require("./get-correction");
 const { createMinimaxApi } = require("./minimax/create-minimax-api");
-const { textToImage } = require("./fal/text-to-image");
+const { qwenTextToImage } = require("./qwen/qwen-text-to-image");
+const { falTextToImage } = require("./fal/fal-text-to-image");
+// const { textToImage } = require("./fal/text-to-image");
 // const { listTranscript } = require("./list-transcript");
 
 const supportedPlatforms = [
@@ -42,6 +44,7 @@ const supportedPlatforms = [
   "qwen",
   "mistral",
   "minimax",
+  "fal",
 ];
 
 const mandarinoApi = (props) => {
@@ -60,9 +63,7 @@ const mandarinoApi = (props) => {
   }
 
   let openai;
-  const model = modelName
-    ? verifyModel({ variant, modelName })
-    : getDefaultModel(variant);
+  const model = modelName || getDefaultModel(variant);
 
   if (variant === "openai") {
     openai = new OpenAI({
@@ -111,6 +112,19 @@ const mandarinoApi = (props) => {
   return {
     discover: async ({ content, lang }) => {
       return discover({ content, lang, openai, model });
+    },
+    textToImage: async ({ text, model }) => {
+      if (!["qwen", "fal"]?.includes(variant)) {
+        throw new Error("Operation currently not supported");
+      }
+
+      if (variant === "qwen") {
+        return qwenTextToImage({ text, model, apiKey });
+      }
+
+      if (variant === "fal") {
+        return falTextToImage({ text, model, apiKey });
+      }
     },
     listGrammarAnaysis: async ({ content, lang }) => {
       return listGrammarAnaysis({ content, lang, openai, model });
@@ -206,7 +220,7 @@ module.exports = {
   starBucksMenu,
   starBucksMenuWithCoordinates,
   createMinimaxApi,
-  textToImage,
+  // textToImage,
 };
 
 // const mandarino = mandarinoApi({

@@ -1,8 +1,10 @@
 require("dotenv").config();
+const ulid = require("ulid");
 
 const { fal } = require("@fal-ai/client");
 
-async function textToImage({ prompt, model = "fal-ai/flux/dev", apiKey }) {
+async function falTextToImage({ text, model = "fal-ai/flux/dev", apiKey }) {
+  const t0 = performance.now();
   fal.config({
     credentials: apiKey,
   });
@@ -17,7 +19,7 @@ async function textToImage({ prompt, model = "fal-ai/flux/dev", apiKey }) {
     model,
     {
       input: {
-        prompt,
+        prompt: text,
       },
       logs: true,
       onQueueUpdate: (update) => {
@@ -28,17 +30,31 @@ async function textToImage({ prompt, model = "fal-ai/flux/dev", apiKey }) {
     }
   );
 
-  return result.data;
+  const t1 = performance.now();
+
+  const latency = t1 - t0;
+
+  const response = {
+    id: ulid.ulid(),
+    model,
+    latency,
+    imageUrl: result?.data?.images?.[0]?.url,
+
+    createdAt: Date.now(),
+    contentType: result?.data?.images?.[0]?.content_type,
+  };
+
+  return response;
 
   console.log("Image generation data:", result.data);
   console.log("Request ID:", result.requestId);
 }
 
 module.exports = {
-  textToImage,
+  falTextToImage,
 };
-// generateImage({
-//   prompt: "A book image cover of: Harry Potter and the Philosophers Stone",
+// falTextToImage({
+//   text: "A book image cover of: Harry Potter and the Philosophers Stone",
 //   apiKey: process.env.FAL_API_KEY,
 // })
 //   .then((resp) => {
