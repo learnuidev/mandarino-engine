@@ -53,7 +53,7 @@ const qwenTextToImage = async ({ apiKey, text, model = "wan2.2-t2i-plus" }) => {
       const latency = t1 - t0;
       console.log(`Latency`, latency);
 
-      console.log("JSON", JSON.stringify(statusJson, null, 4));
+      // console.log("JSON", JSON.stringify(statusJson, null, 4));
 
       const response = {
         id: ulid.ulid(),
