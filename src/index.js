@@ -32,6 +32,7 @@ const { segmentText } = require("./segment-text");
 const { segmentTextRaw } = require("./segment-text-raw");
 const { getCorrection } = require("./get-correction");
 const { createMinimaxApi } = require("./minimax/create-minimax-api");
+const { textToImage } = require("./fal/text-to-image");
 // const { listTranscript } = require("./list-transcript");
 
 const supportedPlatforms = [
@@ -205,6 +206,7 @@ module.exports = {
   starBucksMenu,
   starBucksMenuWithCoordinates,
   createMinimaxApi,
+  textToImage,
 };
 
 // const mandarino = mandarinoApi({

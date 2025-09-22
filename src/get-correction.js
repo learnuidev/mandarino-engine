@@ -5,7 +5,7 @@ async function getCorrection({
   openai,
   model,
   targetLang,
-  sourceLang,
+  // sourceLang,
 }) {
   const resp = await chatV2({
     openai,
@@ -19,14 +19,14 @@ Please provide in stringified JSON format like so:
 For example for source lang of en and target lang of es, or zh for: So today was a great day. voy al cine con mi esposa et mi nina victoria.
 
 if should return
-{"correction": "Hoy fue un gran día. Voy al cine con mi esposa y mi niña Victoria.",
+{"correction": "Hoy fue un gran día Voy al cine con mi esposa y mi niña Victoria.",
  "details": [{
-   "original": "So today was a great day.",
+   "original": "So today was a great day",
    "correction": "Hoy fue un gran día."
  },
 
  {
-   "original": "So today was a great day.",
+   "original": "So today was a great day",
    "correction": "Hoy fue un gran día."
 
 
@@ -61,7 +61,7 @@ if should return
         endIndex: startIndex + detail?.original?.length,
       };
     }),
-    sourceLang,
+    // sourceLang,
     targetLang,
   };
 }

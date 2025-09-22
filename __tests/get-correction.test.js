@@ -110,6 +110,19 @@ const chineseExample1 = {
   },
 };
 
-mandarinoClient.getCorrection(chineseExample1.input).then((resp) => {
+const chineseExample2 = {
+  input: {
+    content: `今天我觉得我们的生活是非常非常简单为什么简单呢因为我觉得生活是一个很重要的事对啊我不会见你明天再讲`,
+    targetLang: "zh",
+  },
+};
+const chineseExample3 = {
+  input: {
+    content: `Today was a great day. me and my family went to the market to get some clothes for Victoria.`,
+    targetLang: "zh",
+  },
+};
+
+mandarinoClient.getCorrection(chineseExample2.input).then((resp) => {
   console.log("RESP", resp);
 });
